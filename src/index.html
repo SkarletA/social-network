@@ -1,12 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Slabo+13px&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+
+  <title>Mapask</title>
 </head>
 <body>
+  
+  <section class="login">
+    <p>Bienvenido a</p>
+    <h1>Mapask</h1>
+    <p>Conecta con personas que se apasionan por la programación</p>
+
+    <section class="container-login">
+      <h2>Mapask</h2>
+      <form >
+        <input class="input input-email" id="inputEmail" type="text" placeholder="Email: " required >
+        <div class="container-email"></div>
+
+        <input class="input input-password" id="inputPassword" type="password" placeholder="Contraseña: ">
+        <div class="container-password"></div>
+        <button class="button btn-login" id="btnLogin">Iniciar Sesión</button>
+      </form>
+      <div class="registration">
+        <span>¿Ya estas en Mapask?</span> 
+        <a href="#overlay" class="link-registration" id="linkRegistration">Registrate</a>
+      </div>
+    </section>
+    <section class="overlay" id="overlay"  >
+      <div class="popup">
+        <a href="#" class="btn-cerrar-popup" id="btnCerrarPopup">X</a>
+        <h3>Registrarte en Mapask</h3>
+        <p> es rápido y fácil</p>
+        <form action="" class="form-registration">
+          <input type="text" placeholder="Nombre: ">
+          <input type="text" placeholder="Apellido: ">
+          <input type="email" placeholder="Correo: ">
+          <input type="password" placeholder="Contraseña: ">
+          <input type="password" placeholder="Confirmar contraseña: ">
+
+          <div class="date-of-birth">
+            <label for="">Fecha de Nacimiento: </label>
+            <input type="date">
+          </div>
+          <button class="button btn-registration" id="btnLogin">Registrate</button>
+        </form>
+      </div>
+    </section>
+    
+
+
+  </section>
+
+
   <script type="module" src="main.js"></script>
 </body>
 </html>
