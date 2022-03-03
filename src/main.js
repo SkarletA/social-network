@@ -3,49 +3,42 @@
 import { myFunction } from './lib/index.js';
 
 // Constante de validacion de correo y constraseña
-const expEmail = /^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+const expEmail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
 const expPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
 const alertEmail = document.querySelector('.container-email');
 const alertPassword = document.querySelector('.container-password');
 
 // constantes de popup
-const btnRegistrarte = document.querySelector("#linkRegistration");
-const cerrarPopup = document.querySelector("#btnCerrarPopup");
-const overlay = document.querySelector("#overlay");
-overlay.style.visibility="hidden";
+const btnRegistrarte = document.querySelector('#linkRegistration');
+const cerrarPopup = document.querySelector('#btnCerrarPopup');
+const overlay = document.querySelector('#overlay');
+overlay.style.visibility = 'hidden';
 
-btnRegistrarte.addEventListener("click", function() {
-  overlay.style.visibility="visible";
-})
+btnRegistrarte.addEventListener('click', () => {
+  overlay.style.visibility = 'visible';
+});
 
-cerrarPopup.addEventListener("click", function() {
-  overlay.style.visibility="hidden";
-})
+cerrarPopup.addEventListener('click', () => {
+  overlay.style.visibility = 'hidden';
+});
 
-mostrarPopup();
-
-
-document.querySelector('#btnLogin').addEventListener('click', function(e){
+document.querySelector('#btnLogin').addEventListener('click', (e) => {
   e.preventDefault();
 
   const email = document.querySelector('#inputEmail').value;
   const password = document.querySelector('#inputPassword').value;
 
-  console.log(expEmail.test(email));
-
   if (expEmail.test(email)) {
     console.log('email válido');
   } else {
-    alertEmail.innerHTML = `<span class="red"> Correo inválido </span>`;
+    alertEmail.innerHTML = '<span class="red"> Correo inválido </span>';
   }
 
   if (expPassword.test(password)) {
     console.log('password válido');
   } else {
-    alertPassword.innerHTML=`<span class="red"> Constraseña inválido </span>`;
+    alertPassword.innerHTML = '<span class="red"> Constraseña inválido </span>';
   }
-
 });
-
 
 myFunction();
