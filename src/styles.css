@@ -17,12 +17,22 @@
   width: 100vw;
 
 }
+/*seccion Imagen*/
+.image-login img{
+  width: 70vw;
+  height: auto;
+  margin-top: 1em;
+}
+
+
 
 /* Estilos Login */
 .login {
   align-items: center;
-  display: flex;
+  display: grid;
   flex-direction: column;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  justify-items: center;
   text-align: center;
 }
 
@@ -40,7 +50,11 @@
   font-family: var(--fontSections);
   font-weight: bold;
   font-size: 2em;
-  margin: 1.5em;
+  margin-top: 0.8em;
+}
+
+.login .welcome {
+  margin-top: 1.5em;
 }
 
 .login p {
@@ -49,24 +63,25 @@
   font-size: 1.2em;
   font-weight: bold;
   margin-top: 0.5em;
+  padding: 0 1em 0 1em;
 }
 
 .container-login {
   align-items: center;
   display: flex;
   background-color: #FCE2BA; 
-  border-radius: 2em;
+  border-radius: 1.5em;
   flex-direction: column;
-  margin-top: 3em;
-  min-height: 24em;
+  margin-top: 1.5em;
+  min-height: 22em;
   min-width: 18em;
 }
 
 .input {
   border: 0.1em solid gray;
-  border-radius: 1em;
-  height: 2em;
-  margin-top: 1em;
+  border-radius: 0.5em;
+  height: 2.2em;
+  margin-top: 1.3em;
   padding-left: 0.8em;
   width: 17em;
 }
@@ -86,11 +101,13 @@
   align-items: center; 
   background-color: #fff;
   border: 0.2em solid #0073B1;
-  border-radius: 1.3em;
+  border-radius: 0.9em;
   display: flex;
   flex-direction: row;
+  font-family: var(--fontTexts);
   font-size: .9em;
-  height: 2em;
+  font-weight: bold;
+  height: 2.1em;
   justify-content: space-between;
   margin-top: 1.5em;
   padding: 0 1em;
@@ -100,6 +117,7 @@
 .red {
   color:red;
 }
+
 
 /*Seccion de registro*/
 .overlay{
@@ -196,4 +214,26 @@
   cursor: pointer;
   height: 2.3em;
   width: 16.1em;
+}
+
+@media (min-width: 480px){
+  .login {
+    grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
+  }
+
+  .image-login img{
+    width: 50vw;
+    margin-left: 4em;
+  }
+}
+
+@media (min-width: 1024px){
+  .login {
+    grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
+  }
+
+  .image-login img{
+    width: 60vw;
+    margin-left: 11em;
+  }
 }

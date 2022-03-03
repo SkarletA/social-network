@@ -16,17 +16,13 @@ overlay.style.visibility="hidden";
 
 btnRegistrarte.addEventListener("click", function() {
   overlay.style.visibility="visible";
-
 })
 
 cerrarPopup.addEventListener("click", function() {
   overlay.style.visibility="hidden";
-
 })
 
 mostrarPopup();
-
-
 
 
 document.querySelector('#btnLogin').addEventListener('click', function(e){
@@ -50,5 +46,6 @@ document.querySelector('#btnLogin').addEventListener('click', function(e){
   }
 
 });
+
 
 myFunction();
