@@ -1,5 +1,5 @@
 // Este es el punto de entrada de tu aplicacion
-
+import { loginGoogle } from './auth.js';
 import { myFunction } from './lib/index.js';
 
 // Constante de validacion de correo y constraseña
@@ -40,5 +40,8 @@ document.querySelector('#btnLogin').addEventListener('click', (e) => {
     alertPassword.innerHTML = '<span class="red"> Constraseña inválido </span>';
   }
 });
+
+const btnLoginGoogle = document.getElementById('btnGoogle');
+btnLoginGoogle.addEventListener('click', loginGoogle);
 
 myFunction();

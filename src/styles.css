@@ -118,6 +118,18 @@
   color:red;
 }
 
+.btn-google {
+  background-color: #db4a39;
+  border: 0.1em solid #db4a39;
+  border-radius: 1em;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1em;
+  height: 2em;
+  width: 7em;
+}
+
 
 /*Seccion de registro*/
 .overlay{
@@ -237,3 +249,4 @@
     margin-left: 11em;
   }
 }
+
