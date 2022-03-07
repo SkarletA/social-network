@@ -22,23 +22,25 @@
     <p>Conecta con personas que se apasionan por la programación</p>
 
     <section class="image-login">
-      <img src="/img/img-login.svg" alt="imagen-login">
+      <img src='https://svgshare.com/i/ept.svg' title='img-login' />
     </section>
-
     <section class="container-login">
       <h2>Mapask</h2>
-      <form >
+      <form class="form-session">
         <input class="input input-email" id="inputEmail" type="text" placeholder="Email: " required >
-        <div class="container-email"></div>
-
+        <div class="container-email" id="containerEmail"></div>
         <input class="input input-password" id="inputPassword" type="password" placeholder="Contraseña: ">
-        <div class="container-password"></div>
+        <div class="container-password" id="containerPassword"></div>
         <button class="button btn-login" id="btnLogin">Iniciar Sesión</button>
       </form>
       <div class="registration">
         <span>¿Ya estas en Mapask?</span> 
         <a href="#overlay" class="link-registration" id="linkRegistration">Registrate</a>
       </div>
+      <button class="btn-google" id="btnGoogle">
+        <span class="iconify" data-icon="akar-icons:google-contained-fill"></span>
+        GOOGLE
+      </button>
     </section>
     <section class="overlay" id="overlay"  >
       <div class="popup">
@@ -48,9 +50,10 @@
         <form action="" class="form-registration">
           <input type="text" placeholder="Nombre: ">
           <input type="text" placeholder="Apellido: ">
-          <input type="email" placeholder="Correo: ">
-          <input type="password" placeholder="Contraseña: ">
-          <input type="password" placeholder="Confirmar contraseña: ">
+          <input class ="input" id="inputEmailR" type="email" placeholder="Correo: ">
+          <input class ="input" id ="inputPasswordR" type="password" placeholder="Contraseña: ">
+          <input class ="input" id ="inputPassConf" type="password" placeholder="Confirmar contraseña: ">
+          <div class="container-email-r" id="containerEmailR"></div>
 
           <div class="date-of-birth">
             <label for="">Fecha de Nacimiento: </label>
@@ -60,13 +63,9 @@
         </form>
       </div>
     </section>
-    
-
-
   </section>
   
-
-
+  <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
   <script type="module" src="main.js"></script>
 </body>
 </html>
