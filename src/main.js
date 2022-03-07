@@ -4,7 +4,8 @@ import { myFunction } from './lib/index.js';
 
 // Constante de validacion de correo y constraseña
 const expEmail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
-const expPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
+const expPassword =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
 const alertEmail = document.querySelector('.container-email');
 const alertPassword = document.querySelector('.container-password');
 
