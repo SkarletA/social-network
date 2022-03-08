@@ -279,10 +279,4 @@
 @media (min-width: 1440px) {
 }
 
-.color {
-  color: rgb(174, 0, 255);
-  font-family: var(--fontTitle);
-  height: 200px;
-  width: 200px;
-  background-color: #0073b1;
-}
+

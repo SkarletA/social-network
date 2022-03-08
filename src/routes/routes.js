@@ -1,26 +1,10 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable func-call-spacing */
 /* eslint-disable indent */
 /* eslint import/no-unresolved: */
-import { loginGoogle } from '../auth.js';
+// import { loginGoogle } from '../auth.js';
 import { home } from '../components/home.js';
-
-// const paths = {
-//   home: '/',
-//   profile: '/profile',
-// };
-
-// const divRoot = document.getElementById('home');
-// divRoot.innerHTML = paths[window.location.pathname];
-
-// const onNavigate = (e) => {
-//   console.log(e);
-//   window.history.pushState({}, e, window.location.href + e);
-//   divRoot.innerHTML = paths[e];
-// };
-
-// window.onpopstate = () => {
-//   divRoot.innerHTML = paths[window.location.pathname];
-// };
+import { loadLogin } from '../components/login.js';
 
 function route() {
   const { hash } = location;
@@ -28,8 +12,7 @@ function route() {
   divRoot.innerHTML = null;
   // navBar();
   if (!hash) {
-    console.log('hola');
-    // login();
+    divRoot.appendChild(loadLogin());
   }
   if (hash === '#/home') {
     divRoot.appendChild(home());
