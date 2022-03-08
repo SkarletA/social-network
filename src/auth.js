@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -23,7 +24,6 @@ export async function loginGoogle() {
     })
     .catch((error) => {
       const errorMsg = error.message;
-      console.log(errorMsg);
     });
 }
 
@@ -31,7 +31,6 @@ export async function registerUser(email, password) {
   await createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -40,13 +39,15 @@ export async function registerUser(email, password) {
 }
 
 export async function loginUser(email, password) {
+  let user;
   await signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user);
+      user = userCredential.user;
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMsg = error.message;
+      user = null;
     });
+  return user;
 }
