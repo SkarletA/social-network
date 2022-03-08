@@ -1,47 +1,78 @@
 // Este es el punto de entrada de tu aplicacion
-import { loginGoogle } from './auth.js';
-import { myFunction } from './lib/index.js';
+import { loginGoogle, registerUser, loginUser } from './auth.js';
+// import { home } from './components/home.js';
+// import { myFunction } from './lib/index.js';
 
 // Constante de validacion de correo y constraseña
 const expEmail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
-const expPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
-const alertEmail = document.querySelector('.container-email');
-const alertPassword = document.querySelector('.container-password');
+const expPassword =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
+const alertEmailPassword = document.querySelector('#containerPassword');
+const alertEmailR = document.querySelector('#containerEmailR');
 
 // constantes de popup
-const btnRegistrarte = document.querySelector('#linkRegistration');
+const linkRegistration = document.querySelector('#linkRegistration');
 const cerrarPopup = document.querySelector('#btnCerrarPopup');
 const overlay = document.querySelector('#overlay');
-overlay.style.visibility = 'hidden';
+const inputEmail = document.querySelector('#inputEmailR');
+const inputPassword = document.querySelector('#inputPasswordR');
+const inputPassConfirm = document.querySelector('#inputPassConf');
+const btnRegistration = document.querySelector('#btnRegistration');
 
-btnRegistrarte.addEventListener('click', () => {
-  overlay.style.visibility = 'visible';
-});
-
-cerrarPopup.addEventListener('click', () => {
+if (document.querySelector('.login')) {
   overlay.style.visibility = 'hidden';
-});
 
-document.querySelector('#btnLogin').addEventListener('click', (e) => {
-  e.preventDefault();
+  // Seccion registrarse
+  linkRegistration.addEventListener('click', () => {
+    overlay.style.visibility = 'visible';
+  });
 
-  const email = document.querySelector('#inputEmail').value;
-  const password = document.querySelector('#inputPassword').value;
+  cerrarPopup.addEventListener('click', () => {
+    overlay.style.visibility = 'hidden';
+  });
 
-  if (expEmail.test(email)) {
-    console.log('email válido');
-  } else {
-    alertEmail.innerHTML = '<span class="red"> Correo inválido </span>';
-  }
+  btnRegistration.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (
+      expEmail.test(inputEmail.value) &&
+      expPassword.test(inputPassword.value) &&
+      expPassword.test(inputPassConfirm.value)
+    ) {
+      if (inputPassword.value === inputPassConfirm.value) {
+        registerUser(inputEmail.value, inputPassword.value);
+      } else {
+        alertEmailR.innerHTML =
+          '<span class="red"> Contraseñas no coinciden </span>';
+      }
+    } else {
+      alertEmailR.innerHTML =
+        '<span class="red"> Correo o contraseña inválido </span>';
+    }
+  });
 
-  if (expPassword.test(password)) {
-    console.log('password válido');
-  } else {
-    alertPassword.innerHTML = '<span class="red"> Constraseña inválido </span>';
-  }
-});
+  // Seccion Iniciar sesion
+  document.querySelector('#btnLogin').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const email = document.querySelector('#inputEmail').value;
+    const password = document.querySelector('#inputPassword').value;
 
-const btnLoginGoogle = document.getElementById('btnGoogle');
-btnLoginGoogle.addEventListener('click', loginGoogle);
+    if (expEmail.test(email) && expPassword.test(password)) {
+      const user = await loginUser(email, password);
+      if (!user) {
+        alertEmailPassword.innerHTML =
+          '<span class="red"> Usuario no registrado </span>';
+      } else {
+        alertEmailPassword.innerHTML = '';
+      }
+    } else {
+      alertEmailPassword.innerHTML =
+        '<span class="red"> Correo o constraseña inválido </span>';
+    }
+  });
 
-myFunction();
+  // Seccion Boton de loguearse con google
+  const btnLoginGoogle = document.getElementById('btnGoogle');
+  btnLoginGoogle.addEventListener('click', loginGoogle);
+} else {
+  // document.querySelector('.login').innerHTML = '';
+}
