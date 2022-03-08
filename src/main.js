@@ -1,10 +1,12 @@
 // Este es el punto de entrada de tu aplicacion
 import { loginGoogle, registerUser, loginUser } from './auth.js';
-import { myFunction } from './lib/index.js';
+// import { myFunction } from './lib/index.js';
+// import { onNavigate, paths } from './routes/routes.js';
 
 // Constante de validacion de correo y constraseña
 const expEmail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
-const expPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
+const expPassword =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
 const alertEmailPassword = document.querySelector('#containerPassword');
 const alertEmailR = document.querySelector('#containerEmailR');
 
@@ -30,17 +32,22 @@ cerrarPopup.addEventListener('click', () => {
 
 btnRegistration.addEventListener('click', (e) => {
   e.preventDefault();
-  if (expEmail.test(inputEmail.value) && expPassword.test(inputPassword.value)
-    && expPassword.test(inputPassConfirm.value)) {
+  if (
+    expEmail.test(inputEmail.value) &&
+    expPassword.test(inputPassword.value) &&
+    expPassword.test(inputPassConfirm.value)
+  ) {
     if (inputPassword.value === inputPassConfirm.value) {
       console.log('email válido');
       console.log('password válido');
       registerUser(inputEmail.value, inputPassword.value);
     } else {
-      alertEmailR.innerHTML = '<span class="red"> Contraseñas no coinciden </span>';
+      alertEmailR.innerHTML =
+        '<span class="red"> Contraseñas no coinciden </span>';
     }
   } else {
-    alertEmailR.innerHTML = '<span class="red"> Correo o contraseña inválido </span>';
+    alertEmailR.innerHTML =
+      '<span class="red"> Correo o contraseña inválido </span>';
   }
 });
 
@@ -56,7 +63,8 @@ document.querySelector('#btnLogin').addEventListener('click', (e) => {
     console.log('password válido');
     loginUser(email, password);
   } else {
-    alertEmailPassword.innerHTML = '<span class="red"> Correo o constraseña inválido </span>';
+    alertEmailPassword.innerHTML =
+      '<span class="red"> Correo o constraseña inválido </span>';
   }
 });
 
@@ -64,4 +72,6 @@ document.querySelector('#btnLogin').addEventListener('click', (e) => {
 const btnLoginGoogle = document.getElementById('btnGoogle');
 btnLoginGoogle.addEventListener('click', loginGoogle);
 
-myFunction();
+// console.log(paths);
+// const homeLink = document.getElementById('homeLink');
+// homeLink.addEventListener('click', onNavigate);
