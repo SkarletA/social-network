@@ -3,7 +3,7 @@
 /* eslint-disable indent */
 /* eslint import/no-unresolved: */
 // import { loginGoogle } from '../auth.js';
-import { home } from '../components/home.js';
+// import { home } from '../components/home.js';
 import { loadLogin } from '../components/login.js';
 
 function route() {
@@ -15,7 +15,7 @@ function route() {
     divRoot.appendChild(loadLogin());
   }
   if (hash === '#/home') {
-    divRoot.appendChild(home());
+    //divRoot.appendChild(home());
   }
   if (hash === '/#profile') {
     // profile();
