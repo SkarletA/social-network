@@ -1,6 +1,6 @@
 // Este es el punto de entrada de tu aplicacion
 import { loginGoogle, registerUser, loginUser } from './auth.js';
-// import { home } from './components/home.js';
+
 // import { myFunction } from './lib/index.js';
 
 // Constante de validacion de correo y constraseña
@@ -34,19 +34,17 @@ if (document.querySelector('.login')) {
   btnRegistration.addEventListener('click', (e) => {
     e.preventDefault();
     if (
-      expEmail.test(inputEmail.value) &&
-      expPassword.test(inputPassword.value) &&
-      expPassword.test(inputPassConfirm.value)
+      expEmail.test(inputEmail.value) && 
+      expPassword.test(inputPassword.value) && expPassword.test(inputPassConfirm.value)
     ) {
       if (inputPassword.value === inputPassConfirm.value) {
         registerUser(inputEmail.value, inputPassword.value);
+        window.location.href = '#/home';
       } else {
-        alertEmailR.innerHTML =
-          '<span class="red"> Contraseñas no coinciden </span>';
+        alertEmailR.innerHTML = '<span class="red"> Contraseñas no coinciden </span>';
       }
     } else {
-      alertEmailR.innerHTML =
-        '<span class="red"> Correo o contraseña inválido </span>';
+      alertEmailR.innerHTML = '<span class="red"> Correo o contraseña inválido </span>';
     }
   });
 
@@ -59,14 +57,13 @@ if (document.querySelector('.login')) {
     if (expEmail.test(email) && expPassword.test(password)) {
       const user = await loginUser(email, password);
       if (!user) {
-        alertEmailPassword.innerHTML =
-          '<span class="red"> Usuario no registrado </span>';
+        alertEmailPassword.innerHTML = '<span class="red"> Usuario no registrado </span>';
       } else {
         alertEmailPassword.innerHTML = '';
+        window.location.href = '#/home';
       }
     } else {
-      alertEmailPassword.innerHTML =
-        '<span class="red"> Correo o constraseña inválido </span>';
+      alertEmailPassword.innerHTML = '<span class="red"> Correo o constraseña inválido </span>';
     }
   });
 
