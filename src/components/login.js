@@ -22,22 +22,23 @@ export function loadLogin() {
         <button class="button btn-login" id="btnLogin">Iniciar Sesión</button>
       </form>
       <div class="registration">
-        <span>¿Ya estas en Mapask?</span>
+        <span>¿No estas en Mapask?</span>
         <a class="link-registration" id="linkRegistration">Registrate</a>
       </div>
       <button class="btn-google" id="btnGoogle">
         <span class="iconify" data-icon="akar-icons:google-contained-fill"></span>
         GOOGLE
       </button>
+      <div id="alertGoogle"></div>
     </section>
     <section class="overlay" id="overlay">
       <div class="popup">
-        <a href="#" class="btn-cerrar-popup" id="btnCerrarPopup">X</a>
+        <a class="btn-cerrar-popup" id="btnCerrarPopup">X</a>
         <h3>Registrarte en Mapask</h3>
         <p> es rápido y fácil</p>
         <form action="" class="form-registration">
-          <input type="text" placeholder="Nombre: ">
-          <input type="text" placeholder="Apellido: ">
+          <input class="input" type="text" placeholder="Nombre: ">
+          <input class="input" type="text" placeholder="Apellido: ">
           <input class="input" id="inputEmailR" type="email" placeholder="Correo: ">
           <input class="input" id="inputPasswordR" type="password" placeholder="Contraseña: ">
           <input class="input" id="inputPassConf" type="password" placeholder="Confirmar contraseña: ">
@@ -47,6 +48,7 @@ export function loadLogin() {
             <label for="">Fecha de Nacimiento: </label>
             <input type="date">
           </div>
+          
           <button class="button btn-registration" id="btnRegistration">Registrate</button>
         </form>
       </div>
