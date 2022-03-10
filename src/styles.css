@@ -10,8 +10,9 @@
   box-sizing: border-box;
 }
 
-.body {
-  background-color: #e5e5e5;
+body {
+  background-image: url('/bg-circuitGris.svg');
+  background-image: #0073b1;
   height: 100vh;
   width: 100vw;
 }
@@ -109,8 +110,11 @@
   width: 16em;
 }
 
-/* alertas */
+.link-registration {
+  color:#0073b1;
+}
 
+/* alertas */
 .container-password {
   margin-top: 0.2em;
 }
@@ -137,7 +141,7 @@
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  height: 100vh;
+  height: 150%;
   justify-content: center;
   position: fixed;
   width: 100vw;
@@ -146,8 +150,8 @@
 .popup {
   background-color: #fff;
   border-radius: 2em;
-  height: 80vh;
-  width: 80vw;
+  min-height: 51vh;
+  min-width: 17em;
   position: relative;
 }
 
@@ -235,6 +239,47 @@
     width: 50vw;
     margin-left: 4em;
   }
+
+  .popup {
+    height: 60vh;
+    min-width: 25em;
+  }
+
+  .popup .input {
+    font-size: 1em;
+  }
+
+  .date-of-birth {
+    font-size: 1.205em;
+  }
+
+  .btn-registration {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 704px) {
+  .login {
+    grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
+  }
+
+  .image-login img {
+    width: 50vw;
+    margin-left: 4em;
+  }
+  
+  .popup {
+    top: 12em;
+    height: 61vh;
+  }
+
+  .popup .input {
+    font-size: 1em;
+  }
+
+  .date-of-birth {
+    font-size: 1.205em;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -273,6 +318,16 @@
 
   .button {
     font-size: 0.85em;
+  }
+
+  .popup {
+    height: 65vh;
+    min-width: 35em;
+    top: 0;
+  }
+
+  .btn-registration {
+    font-size: 1em;
   }
 }
 

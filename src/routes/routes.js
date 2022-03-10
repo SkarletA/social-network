@@ -15,7 +15,7 @@ function route() {
     divRoot.appendChild(loadLogin());
   }
   if (hash === '#/home') {
-    //divRoot.appendChild(home());
+    // divRoot.appendChild(home());
   }
   if (hash === '/#profile') {
     // profile();

@@ -5,10 +5,10 @@ import { loginGoogle, registerUser, loginUser } from './auth.js';
 
 // Constante de validacion de correo y constraseña
 const expEmail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
-const expPassword =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
+const expPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
 const alertEmailPassword = document.querySelector('#containerPassword');
 const alertEmailR = document.querySelector('#containerEmailR');
+const alertGoogle = document.getElementById('alertGoogle');
 
 // constantes de popup
 const linkRegistration = document.querySelector('#linkRegistration');
@@ -34,8 +34,9 @@ if (document.querySelector('.login')) {
   btnRegistration.addEventListener('click', (e) => {
     e.preventDefault();
     if (
-      expEmail.test(inputEmail.value) && 
-      expPassword.test(inputPassword.value) && expPassword.test(inputPassConfirm.value)
+      expEmail.test(inputEmail.value)
+      && expPassword.test(inputPassword.value)
+      && expPassword.test(inputPassConfirm.value)
     ) {
       if (inputPassword.value === inputPassConfirm.value) {
         registerUser(inputEmail.value, inputPassword.value);
@@ -69,7 +70,16 @@ if (document.querySelector('.login')) {
 
   // Seccion Boton de loguearse con google
   const btnLoginGoogle = document.getElementById('btnGoogle');
-  btnLoginGoogle.addEventListener('click', loginGoogle);
+  btnLoginGoogle.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const userGoogle = await loginGoogle();
+    if (!userGoogle) {
+      alertGoogle.innerHTML = '<span class="red"> Error al iniciar sesión </span>';
+    } else {
+      alertGoogle.innerHTML = '';
+      window.location.href = '#/home';
+    }
+  });
 } else {
   // document.querySelector('.login').innerHTML = '';
 }
