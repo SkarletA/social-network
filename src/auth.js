@@ -5,6 +5,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
+  updateProfile,
   //   signOut,
   /* eslint import/no-unresolved: */
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
@@ -32,14 +33,23 @@ export async function loginGoogle() {
 }
 
 export async function registerUser(email, password) {
+  let user;
   await createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
+      user = userCredential.user;
+      console.log(user);
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMsg = error.message;
     });
+  return user;
+}
+
+export async function updateUsers(name) {
+  await updateProfile(auth.currentUser, {
+    displayName: name,
+  });
 }
 
 export async function loginUser(email, password) {
@@ -54,4 +64,19 @@ export async function loginUser(email, password) {
       user = null;
     });
   return user;
+}
+
+export function loginUserProfile() {
+  const user = auth.currentUser;
+  let userValues;
+  if (user !== null) {
+    userValues = {
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+      emailVerified: user.emailVerified,
+      uid: user.uid,
+    };
+  }
+  return userValues;
 }

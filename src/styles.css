@@ -230,6 +230,63 @@ body {
   width: 16.1em;
 }
 
+/*nav-bar*/
+.nav-bar-container {
+  background-color: #0073b1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.nav-bar-container li {
+  list-style: none;
+}
+
+.nav-profile,
+.nav-home,
+.notifications,
+.log-out {
+  cursor: pointer;
+}
+
+.mapask {
+  height: 6em;
+  width: 12em;
+}
+
+.img-profile,
+.notifications,
+.log-out {
+  height: 2.5em;
+  width: 3.5em;
+}
+
+.icons-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 15em;
+}
+
+.search-in {
+  border-color: #0073b1;
+  border-radius: 2em;
+  border-style: none;
+  height: 3em;
+  padding: 1.5em;
+  width: 18em;
+}
+
+.search {
+  height: 2em;
+  left: 25em;
+  position: absolute;
+  top: 2em;
+  width: 2em;
+}
+
 /*section home*/
 .nav-bar {
   background-color: #0073b1;

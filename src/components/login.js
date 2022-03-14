@@ -36,17 +36,16 @@ function login() {
         <h3>Registrarte en Mapask</h3>
         <p> es rápido y fácil</p>
         <form action="" class="form-registration">
-          <input class="input" type="text" placeholder="Nombre: ">
-          <input class="input" type="text" placeholder="Apellido: ">
-          <input class="input" id="inputEmailR" type="email" placeholder="Correo: ">
-          <input class="input" id="inputPasswordR" type="password" placeholder="Contraseña: ">
-          <input class="input" id="inputPassConf"
-          type="password" placeholder="Confirmar contraseña: ">
+          <input id="userName" class="input" type="text" placeholder="Nombre: ">
+          <input id="userLastName" class="input" type="text" placeholder="Apellido: ">
+          <input id="inputEmailR" class="input" type="email" placeholder="Correo: ">
+          <input id="inputPasswordR" class="input" type="password" placeholder="Contraseña: ">
+          <input id="inputPassConf" class="input" type="password" placeholder="Confirmar contraseña: ">
           <div class="container-email-r" id="containerEmailR"></div>
 
           <div class="date-of-birth">
             <label for="">Fecha de Nacimiento: </label>
-            <input type="date">
+            <input id="dateOfBirth" type="date">
           </div>
           
           <button class="button btn-registration" id="btnRegistration">Registrate</button>
