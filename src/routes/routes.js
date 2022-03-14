@@ -4,7 +4,7 @@
 /* eslint import/no-unresolved: */
 // import { loginGoogle } from '../auth.js';
 // import { home } from '../components/home.js';
-import { loadLogin } from '../components/login.js';
+/* import { loadLogin } from '../components/login.js';
 
 function route() {
   const { hash } = location;
@@ -15,7 +15,7 @@ function route() {
     divRoot.appendChild(loadLogin());
   }
   if (hash === '#/home') {
-    //divRoot.appendChild(home());
+    // divRoot.appendChild(home());
   }
   if (hash === '/#profile') {
     // profile();
@@ -24,3 +24,4 @@ function route() {
 
 window.addEventListener('hashchange', route);
 route();
+ */

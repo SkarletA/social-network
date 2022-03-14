@@ -11,20 +11,24 @@ import {
 
 import initApp from './initApp.js';
 
+// Iniciar Firebase
 initApp();
-
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 auth.languageCode = 'es';
 
 export async function loginGoogle() {
+  let results;
   await signInWithPopup(auth, provider)
     .then((result) => {
       console.log(result);
+      results = result;
     })
     .catch((error) => {
       const errorMsg = error.message;
+      results = false;
     });
+  return results;
 }
 
 export async function registerUser(email, password) {
