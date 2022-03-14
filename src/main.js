@@ -1,9 +1,13 @@
 // Este es el punto de entrada de tu aplicacion
-import { loginGoogle, registerUser, loginUser } from './auth.js';
+import {
+  loginGoogle, registerUser, loginUser, loginUserProfile, updateUsers,
+} from './auth.js';
 import { onNavigate } from './components/app.js';
 import {
   savePost, onGetPosts, deletePost, getPost, updatePost,
 } from './firestore.js';
+
+import { createUser, getUser, updateUser } from './user-firestore.js';
 
 // import { myFunction } from './lib/index.js';
 
@@ -114,6 +118,42 @@ function listPosts() {
   });
 }
 
+function updateProfileUsers() {
+  const containerProfileUsers = document.getElementById('containerProfileUsers');
+  const formProfile = document.getElementById('formProfile');
+  const uid = localStorage.getItem('userId');
+  if (uid) {
+    const docUser = getUser(uid);
+    const userName = docUser.data().name;
+    const userLastName = docUser.data().lastName;
+    const dateOfBirth = docUser.data().date;
+
+    containerProfileUsers.innerHTML = `
+      <p>${userName}</p>
+      <p>${userLastName}</p>
+      <p>${dateOfBirth}</p>
+    `;
+
+    formProfile.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const image = formProfile['photo-user'].value;
+      const profession = formProfile['user-profession'].value;
+      const hobbie = formProfile['user-hobbie'].value;
+      const aboutMe = formProfile['user-about-me'].value;
+      await updateUser(uid, {
+        image,
+        profession,
+        hobbie,
+        aboutMe,
+      });
+      formProfile.reset();
+    });
+  } else {
+    console.log('User no Existe');
+  }
+}
+
 if (document.querySelector('.login')) {
   const linkHome = document.getElementById('navHome');
   linkHome.addEventListener('click', () => {
@@ -124,6 +164,7 @@ if (document.querySelector('.login')) {
   const linkProfile = document.getElementById('navProfile');
   linkProfile.addEventListener('click', () => {
     onNavigate('/profile');
+    updateProfileUsers();
   });
 
   // Seccion registrarse
@@ -135,7 +176,7 @@ if (document.querySelector('.login')) {
     overlay.style.display = 'none';
   });
 
-  btnRegistration.addEventListener('click', (e) => {
+  btnRegistration.addEventListener('click', async (e) => {
     e.preventDefault();
     if (
       expEmail.test(inputEmail.value)
@@ -143,8 +184,22 @@ if (document.querySelector('.login')) {
       && expPassword.test(inputPassConfirm.value)
     ) {
       if (inputPassword.value === inputPassConfirm.value) {
-        registerUser(inputEmail.value, inputPassword.value);
-        onNavigate('/home');
+        const user = await registerUser(inputEmail.value, inputPassword.value);
+        const userName = document.getElementById('userName').value;
+        const userLastName = document.getElementById('userLastName').value;
+        const date = document.getElementById('dateOfBirth').value;
+        console.log(user);
+        const id = user.uid;
+        console.log(id);
+        onNavigate('/profile');
+        updateUsers(`${userName} ${userLastName}`);
+        await createUser(id, {
+          userName,
+          userLastName,
+          date,
+        });
+        localStorage.setItem('userId', id);
+
         // window.location.href = '/home';
       } else {
         alertEmailR.innerHTML = '<span class="red"> Contraseñas no coinciden </span>';
@@ -167,7 +222,8 @@ if (document.querySelector('.login')) {
       } else {
         alertEmailPassword.innerHTML = '';
         onNavigate('/home');
-        // window.location.href = '/home';
+        const userId = (loginUserProfile()).uid;
+        localStorage.setItem('userId', userId);
       }
     } else {
       alertEmailPassword.innerHTML = '<span class="red"> Correo o constraseña inválido </span>';
@@ -184,10 +240,12 @@ if (document.querySelector('.login')) {
     } else {
       alertGoogle.innerHTML = '';
       onNavigate('/home');
+      listPosts();
       /* window.location.href = '/home'; */
     }
   });
 } else {
+  // document.querySelector('.login').innerHTML = '';
   // document.querySelector('.login').innerHTML = '';
 }
 
