@@ -11,8 +11,8 @@ import {
 
 import initApp from './initApp.js';
 
+// Iniciar Firebase
 initApp();
-
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 auth.languageCode = 'es';
