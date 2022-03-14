@@ -1,5 +1,7 @@
 // Este es el punto de entrada de tu aplicacion
 import { loginGoogle, registerUser, loginUser } from './auth.js';
+import { createPost } from './firestore.js';
+import { onNavigate } from './components/app.js';
 
 // import { myFunction } from './lib/index.js';
 
@@ -20,15 +22,23 @@ const inputPassConfirm = document.querySelector('#inputPassConf');
 const btnRegistration = document.querySelector('#btnRegistration');
 
 if (document.querySelector('.login')) {
-  overlay.style.visibility = 'hidden';
+  const linkHome = document.getElementById('navHome');
+  linkHome.addEventListener('click', () => {
+    onNavigate('/home');
+  });
+
+  const linkProfile = document.getElementById('navProfile');
+  linkProfile.addEventListener('click', () => {
+    onNavigate('/profile');
+  });
 
   // Seccion registrarse
   linkRegistration.addEventListener('click', () => {
-    overlay.style.visibility = 'visible';
+    overlay.style.display = 'flex';
   });
 
   cerrarPopup.addEventListener('click', () => {
-    overlay.style.visibility = 'hidden';
+    overlay.style.display = 'none';
   });
 
   btnRegistration.addEventListener('click', (e) => {
@@ -40,7 +50,8 @@ if (document.querySelector('.login')) {
     ) {
       if (inputPassword.value === inputPassConfirm.value) {
         registerUser(inputEmail.value, inputPassword.value);
-        window.location.href = '#/home';
+        onNavigate('/home');
+        // window.location.href = '/home';
       } else {
         alertEmailR.innerHTML = '<span class="red"> Contraseñas no coinciden </span>';
       }
@@ -61,7 +72,8 @@ if (document.querySelector('.login')) {
         alertEmailPassword.innerHTML = '<span class="red"> Usuario no registrado </span>';
       } else {
         alertEmailPassword.innerHTML = '';
-        window.location.href = '#/home';
+        onNavigate('/home');
+        // window.location.href = '/home';
       }
     } else {
       alertEmailPassword.innerHTML = '<span class="red"> Correo o constraseña inválido </span>';
@@ -77,9 +89,30 @@ if (document.querySelector('.login')) {
       alertGoogle.innerHTML = '<span class="red"> Error al iniciar sesión </span>';
     } else {
       alertGoogle.innerHTML = '';
-      window.location.href = '#/home';
+      onNavigate('/home');
+      /* window.location.href = '/home'; */
     }
   });
 } else {
   // document.querySelector('.login').innerHTML = '';
 }
+
+window.submitPost = function submitPost() {
+  console.log('crear post');
+  const formHome = document.getElementById('formHome');
+  const textArea = formHome['description-posts'];
+  createPost(textArea.value);
+  return false;
+};
+
+// Seccion agregar post
+/* if (document.querySelector('.container-home')) {
+  console.log('dentro de if');
+  const formHome = document.getElementById('formHome');
+  formHome.addEventListener('submit', (e) => {
+    console.log('dentro de evento');
+    e.preventDefault();
+    const textArea = formHome['description-posts'];
+    createPost(textArea.value);
+  });
+} */
