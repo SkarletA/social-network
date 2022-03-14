@@ -246,6 +246,7 @@ if (document.querySelector('.login')) {
   });
 } else {
   // document.querySelector('.login').innerHTML = '';
+  // document.querySelector('.login').innerHTML = '';
 }
 
 /* window.submitPost = function submitPost() {
