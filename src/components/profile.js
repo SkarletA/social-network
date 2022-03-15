@@ -1,7 +1,3 @@
-/* const profile = `
-<h1>Aqui va el Perfil</h1>
-`; */
-
 function profile() {
   const profileContent = `
     <section class="container-profile">
