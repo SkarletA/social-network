@@ -12,7 +12,7 @@ function login() {
     </section>
     <section class="container-login">
       <h2>Mapask</h2>
-      <form class="form-session">
+      <form class="form-session" onsubmit="return false">
         <input class="input input-email" id="inputEmail" type="text" placeholder="Email: " required>
         <div class="container-email" id="containerEmail"></div>
         <input class="input input-password" id="inputPassword"

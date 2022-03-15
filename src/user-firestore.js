@@ -16,7 +16,7 @@ export async function createUser(id, data) {
   await setDoc(doc(db, 'users', id), docData);
 }
 
-export function getUser(id) {
+export async function getUser(id) {
   return getDoc(doc(db, 'users', id));
 }
 export async function updateUser(id, newField) {
