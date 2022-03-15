@@ -8,6 +8,7 @@ import {
 } from './firestore.js';
 
 import { createUser, getUser, updateUser } from './user-firestore.js';
+/* import { listPosts } from './components/posts.js'; */
 
 // import { myFunction } from './lib/index.js';
 
@@ -19,23 +20,13 @@ const alertEmailR = document.querySelector('#containerEmailR');
 const alertGoogle = document.getElementById('alertGoogle');
 
 // constantes de popup
-const linkRegistration = document.querySelector('#linkRegistration');
+const linkRegistration = document.getElementById('linkRegistration');
 const cerrarPopup = document.querySelector('#btnCerrarPopup');
 const overlay = document.querySelector('#overlay');
 const inputEmail = document.querySelector('#inputEmailR');
 const inputPassword = document.querySelector('#inputPasswordR');
 const inputPassConfirm = document.querySelector('#inputPassConf');
 const btnRegistration = document.querySelector('#btnRegistration');
-
-// Fución que crea los posts
-/* function submitPost() {
-  formHome.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const textArea = formHome['description-posts'];
-    savePost(textArea.value);
-    formHome.reset();
-  });
-} */
 
 // Sección de Listar post (Delete, Edit)
 function listPosts() {
@@ -54,8 +45,12 @@ function listPosts() {
 
       postContainer.innerHTML += `
       <div class="card card-body mt-2 border-primary">
-      <p>${post.message}</p>
+        <p>${post.message}</p>
       <div>
+      <button class="btn btn-primary btn-likes" data-id="${doc.id}">
+        <img src='https://svgshare.com/i/fEh.svg' title='corazon sin rellenar' />
+        <img src='https://svgshare.com/i/fE5.svg' title='corazon relleno' />
+      </button>
       <button class="btn btn-primary btn-delete" data-id="${doc.id}">
         🗑 Delete
       </button>
@@ -66,15 +61,34 @@ function listPosts() {
       `;
     });
 
+    // like a post
+    const btnsLikes = document.querySelectorAll('.btn-likes');
+    btnsLikes.forEach((btn) => {
+      btn.addEventListener('click', async ({ target: { dataset } }) => {
+        const postId = dataset.id;
+        console.log(postId);
+        const postData = await getPost(postId);
+        console.log(postData);
+        let likes = postData.data().likes;
+        console.log(likes);
+        likes += 1;
+        updatePost(postId, { likes });
+      });
+    });
+
+    // Borramos un post
     const btnsDelete = postContainer.querySelectorAll('.btn-delete');
     btnsDelete.forEach((btn) => btn.addEventListener('click', async ({ target: { dataset } }) => {
       try {
-        await deletePost(dataset.id);
+        if (window.confirm('Estas seguro de que quieres eliminar este post?')) {
+          await deletePost(dataset.id);
+        }
       } catch (error) {
         console.log(error);
       }
     }));
 
+    // Editamos el post
     const btnsEdit = postContainer.querySelectorAll('.btn-edit');
     btnsEdit.forEach((btn) => btn.addEventListener('click', async (e) => {
       try {
@@ -93,13 +107,15 @@ function listPosts() {
     }));
   });
 
+  // Enviamos el post
   formHome.addEventListener('submit', async (e) => {
     e.preventDefault();
     const textArea = formHome['description-posts'];
+    const uid = localStorage.getItem('userId');
 
     try {
       if (!editStatus) {
-        await savePost(textArea.value);
+        await savePost(textArea.value, uid);
       } else {
         await updatePost(id, {
           message: textArea.value,
@@ -118,14 +134,17 @@ function listPosts() {
   });
 }
 
-function updateProfileUsers() {
+async function updateProfileUsers() {
   const containerProfileUsers = document.getElementById('containerProfileUsers');
   const formProfile = document.getElementById('formProfile');
   const uid = localStorage.getItem('userId');
+  // const infoProfile = document.createElement('div');
+  // infoProfile.classList.add('information-profile');
+
   if (uid) {
-    const docUser = getUser(uid);
-    const userName = docUser.data().name;
-    const userLastName = docUser.data().lastName;
+    const docUser = await getUser(uid);
+    const userName = docUser.data().userName;
+    const userLastName = docUser.data().userLastName;
     const dateOfBirth = docUser.data().date;
 
     containerProfileUsers.innerHTML = `
@@ -147,6 +166,12 @@ function updateProfileUsers() {
         hobbie,
         aboutMe,
       });
+      containerProfileUsers.innerHTML += `
+      <p>${profession}</p>
+      <p>${hobbie}</p>
+      <p>${aboutMe}</p>
+      `;
+      // containerProfileUsers.appendChild(infoProfile);
       formProfile.reset();
     });
   } else {
@@ -154,8 +179,9 @@ function updateProfileUsers() {
   }
 }
 
-if (document.querySelector('.login')) {
+if (document.getElementById('navBar')) {
   const linkHome = document.getElementById('navHome');
+  console.log(linkHome);
   linkHome.addEventListener('click', () => {
     onNavigate('/home');
     listPosts();
@@ -166,9 +192,12 @@ if (document.querySelector('.login')) {
     onNavigate('/profile');
     updateProfileUsers();
   });
+}
 
+if (document.querySelector('.login')) {
   // Seccion registrarse
   linkRegistration.addEventListener('click', () => {
+    console.log('Me hiciste click');
     overlay.style.display = 'flex';
   });
 
@@ -222,6 +251,7 @@ if (document.querySelector('.login')) {
       } else {
         alertEmailPassword.innerHTML = '';
         onNavigate('/home');
+        listPosts();
         const userId = (loginUserProfile()).uid;
         localStorage.setItem('userId', userId);
       }
@@ -241,19 +271,6 @@ if (document.querySelector('.login')) {
       alertGoogle.innerHTML = '';
       onNavigate('/home');
       listPosts();
-      /* window.location.href = '/home'; */
     }
   });
-} else {
-  // document.querySelector('.login').innerHTML = '';
-  // document.querySelector('.login').innerHTML = '';
 }
-
-/* window.submitPost = function submitPost() {
-  console.log('crear post');
-  const formHome = document.getElementById('formHome');
-  const textArea = formHome['description-posts'];
-  savePost(textArea.value);
-  formHome.reset();
-};
- */

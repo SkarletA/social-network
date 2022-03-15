@@ -1,3 +1,4 @@
+/* eslint import/no-cycle: [, { maxDepth: 1 }] */
 import { home } from './home.js';
 import { login } from './login.js';
 import { profile } from './profile.js';

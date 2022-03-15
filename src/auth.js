@@ -6,10 +6,11 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
   updateProfile,
+  onAuthStateChanged,
   //   signOut,
   /* eslint import/no-unresolved: */
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
-
+import { onNavigate } from './components/app.js';
 import initApp from './initApp.js';
 
 // Iniciar Firebase
@@ -37,7 +38,6 @@ export async function registerUser(email, password) {
   await createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       user = userCredential.user;
-      console.log(user);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -80,3 +80,27 @@ export function loginUserProfile() {
   }
   return userValues;
 }
+
+export const activeSession = (idSession) => {
+  const user = auth.currentUser;
+  if (user !== null) {
+    if (idSession) {
+      console.log('Estoy entrando a home');
+      onNavigate('/home');
+    }
+  } else {
+    console.log('No estoy entrando al home');
+    onNavigate('/login');
+  }
+
+/*   onAuthStateChanged(auth, (user) => {
+    console.log(user);
+    if (user) {
+      if (window.location.origin) {
+        onNavigate('/home');
+      }
+    } else {
+      onNavigate('/login');
+    }
+  }); */
+};
