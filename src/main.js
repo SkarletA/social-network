@@ -44,33 +44,31 @@ function listPosts() {
       const post = doc.data();
 
       postContainer.innerHTML += `
-      <div class="card card-body mt-2 border-primary">
+      <div class="post-container-card">
         <p>${post.message}</p>
-      <div>
-      <button class="btn btn-primary btn-likes" data-id="${doc.id}">
-        <img src='https://svgshare.com/i/fEh.svg' title='corazon sin rellenar' />
-        <img src='https://svgshare.com/i/fE5.svg' title='corazon relleno' />
-      </button>
-      <button class="btn btn-primary btn-delete" data-id="${doc.id}">
-        🗑 Delete
-      </button>
-      <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
-        🖉 Edit
-      </button>
+        <div class="post-container-btn"> 
+          <button class="btn btn-primary btn-likes" data-id="${doc.id}">
+            <img class="icon-likes" src='https://svgshare.com/i/fEh.svg' title='corazon sin rellenar' />
+          </button>
+          <button class="btn-primary btn-delete" data-id="${doc.id}">
+            🗑 Borrar
+          </button>
+          <button class="btn-secondary btn-edit" data-id="${doc.id}">
+            🖉 Editar
+          </button>
+        </div>
       </div>
       `;
     });
 
     // like a post
+    //
     const btnsLikes = document.querySelectorAll('.btn-likes');
     btnsLikes.forEach((btn) => {
       btn.addEventListener('click', async ({ target: { dataset } }) => {
         const postId = dataset.id;
-        console.log(postId);
         const postData = await getPost(postId);
-        console.log(postData);
         let likes = postData.data().likes;
-        console.log(likes);
         likes += 1;
         updatePost(postId, { likes });
       });
@@ -148,8 +146,7 @@ async function updateProfileUsers() {
     const dateOfBirth = docUser.data().date;
 
     containerProfileUsers.innerHTML = `
-      <p>${userName}</p>
-      <p>${userLastName}</p>
+      <p>${userName} ${userLastName} </p>
       <p>${dateOfBirth}</p>
     `;
 
@@ -179,20 +176,16 @@ async function updateProfileUsers() {
   }
 }
 
-if (document.getElementById('navBar')) {
-  const linkHome = document.getElementById('navHome');
-  console.log(linkHome);
-  linkHome.addEventListener('click', () => {
-    onNavigate('/home');
-    listPosts();
-  });
-
-  const linkProfile = document.getElementById('navProfile');
-  linkProfile.addEventListener('click', () => {
+document.addEventListener('click', (e) => {
+  if (e.target.id === 'profileBtn') {
+    e.preventDefault();
     onNavigate('/profile');
     updateProfileUsers();
-  });
-}
+  } else if (e.target.id === 'home') {
+    e.preventDefault();
+    onNavigate('/home');
+  }
+});
 
 if (document.querySelector('.login')) {
   // Seccion registrarse
@@ -228,8 +221,6 @@ if (document.querySelector('.login')) {
           date,
         });
         localStorage.setItem('userId', id);
-
-        // window.location.href = '/home';
       } else {
         alertEmailR.innerHTML = '<span class="red"> Contraseñas no coinciden </span>';
       }
