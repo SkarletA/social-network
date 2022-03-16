@@ -23,7 +23,6 @@ export async function loginGoogle() {
   let results;
   await signInWithPopup(auth, provider)
     .then((result) => {
-      console.log(result);
       results = result;
     })
     .catch((error) => {
