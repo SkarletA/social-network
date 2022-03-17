@@ -7,10 +7,10 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   onAuthStateChanged,
-  //   signOut,
+  signOut,
   /* eslint import/no-unresolved: */
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
-import { onNavigate } from './components/app.js';
+import { onNavigate } from './routes/app.js';
 import initApp from './initApp.js';
 
 // Iniciar Firebase
@@ -80,8 +80,10 @@ export function loginUserProfile() {
   return userValues;
 }
 
-export const activeSession = (idSession) => {
-  const user = auth.currentUser;
+export const logOut = () => auth.signOut();
+
+export const activeSession = () => {
+  /* const user = auth.currentUser;
   if (user !== null) {
     if (idSession) {
       console.log('Estoy entrando a home');
@@ -90,16 +92,15 @@ export const activeSession = (idSession) => {
   } else {
     console.log('No estoy entrando al home');
     onNavigate('/login');
-  }
+  } */
 
-/*   onAuthStateChanged(auth, (user) => {
-    console.log(user);
+  onAuthStateChanged(auth, (user) => {
     if (user) {
       if (window.location.origin) {
         onNavigate('/home');
       }
     } else {
-      onNavigate('/login');
+      onNavigate('/');
     }
-  }); */
+  });
 };

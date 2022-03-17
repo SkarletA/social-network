@@ -1,8 +1,8 @@
 // Este es el punto de entrada de tu aplicacion
 import {
-  loginGoogle, registerUser, loginUser, loginUserProfile, updateUsers,
+  loginGoogle, registerUser, loginUser, loginUserProfile, updateUsers, activeSession, logOut,
 } from './auth.js';
-import { onNavigate } from './components/app.js';
+import { onNavigate } from './routes/app.js';
 import {
   savePost, onGetPosts, deletePost, getPost, updatePost,
 } from './firestore.js';
@@ -27,6 +27,8 @@ const inputEmail = document.querySelector('#inputEmailR');
 const inputPassword = document.querySelector('#inputPasswordR');
 const inputPassConfirm = document.querySelector('#inputPassConf');
 const btnRegistration = document.querySelector('#btnRegistration');
+
+activeSession();
 
 // Sección de Listar post (Delete, Edit)
 function listPosts() {
@@ -136,8 +138,6 @@ async function updateProfileUsers() {
   const containerProfileUsers = document.getElementById('containerProfileUsers');
   const formProfile = document.getElementById('formProfile');
   const uid = localStorage.getItem('userId');
-  // const infoProfile = document.createElement('div');
-  // infoProfile.classList.add('information-profile');
 
   if (uid) {
     const docUser = await getUser(uid);
@@ -152,6 +152,8 @@ async function updateProfileUsers() {
 
     formProfile.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const infoProfile = document.createElement('div');
+      infoProfile.classList.add('information-profile');
 
       const image = formProfile['photo-user'].value;
       const profession = formProfile['user-profession'].value;
@@ -163,12 +165,12 @@ async function updateProfileUsers() {
         hobbie,
         aboutMe,
       });
-      containerProfileUsers.innerHTML += `
+      infoProfile.innerHTML = `
       <p>${profession}</p>
       <p>${hobbie}</p>
       <p>${aboutMe}</p>
       `;
-      // containerProfileUsers.appendChild(infoProfile);
+      containerProfileUsers.appendChild(infoProfile);
       formProfile.reset();
     });
   } else {
@@ -184,6 +186,11 @@ document.addEventListener('click', (e) => {
   } else if (e.target.id === 'home') {
     e.preventDefault();
     onNavigate('/home');
+    listPosts();
+  } else if (e.target.id === 'logOut') {
+    e.preventDefault();
+    logOut();
+    onNavigate('/');
   }
 });
 
