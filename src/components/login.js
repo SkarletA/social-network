@@ -1,7 +1,7 @@
 // aqui va el codigo js que maneja el login,
 // ya sean addeventlisteners, logica del DOM y logica de uso
 // aqui va la estructura de HTML de login
-export default function login() {
+export default function () {
   const content = document.createElement('section');
   content.classList.add('login');
   content.innerHTML = `
