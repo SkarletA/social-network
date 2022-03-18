@@ -141,10 +141,9 @@ input{
 
 /*Seccion de registro*/
 .overlay {
-  display: none;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  /* display: flex; */
+  display: flex;
   height: 150%;
   justify-content: center;
   position: fixed;
@@ -159,7 +158,7 @@ input{
   position: relative;
 }
 
-.popup .btn-cerrar-popup {
+.popup .btn-close-popup {
   display: block;
   color: #0073b1;
   cursor: pointer;
@@ -174,7 +173,7 @@ input{
   width: 1em;
 }
 
-.btn-cerrar-popup:hover {
+.btn-close-popup:hover {
   color: #113246;
 }
 
@@ -455,7 +454,7 @@ input{
   }
 
   /*navbar*/
-  /* .img-profile,
+  .img-profile,
   .home,
   .log-out {
     width: 1.8em;
@@ -481,7 +480,7 @@ input{
 
   .icon-home {
     display: block;
-  } */
+  }
 }
 
 @media (min-width: 704px) {
@@ -508,7 +507,7 @@ input{
   }
 
   /*navbar*/
-  /* .img-profile,
+  .img-profile,
   .home,
   .log-out {
     width: 2.3em;
@@ -534,7 +533,7 @@ input{
 
   .icon-home {
     display: block;
-  } */
+  }
 }
 
 @media (min-width: 1024px) {
@@ -586,7 +585,7 @@ input{
   }
 
   /*Media de navbar*/
-  /* .img-profile,
+  .img-profile,
   .home,
   .log-out {
     width: 3.5em;
@@ -614,7 +613,7 @@ input{
   .icon-home {
     display: block;
   }
-} */
+}
 
 @media (min-width: 1440px) {
   .login {
@@ -623,7 +622,7 @@ input{
   }
 
   /*Media de navbar*/
-  /* .img-profile,
+  .img-profile,
   .home,
   .log-out {
     width: 3.5em;
@@ -646,7 +645,7 @@ input{
 
   .icon-home {
     display: block;
-  } */
+  }
 
 }
 
@@ -661,7 +660,7 @@ input{
   }
 
   /*Media de navbar*/
-  /* .img-profile,
+  .img-profile,
   .home,
   .log-out {
     width: 3.5em;
@@ -684,5 +683,5 @@ input{
 
   .icon-home {
     display: block;
-  } */
+  }
 }

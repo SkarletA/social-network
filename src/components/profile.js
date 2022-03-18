@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import loadNavbar from './navbar.js';
 
 export default function profile() {
