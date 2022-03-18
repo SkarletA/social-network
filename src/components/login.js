@@ -1,59 +1,151 @@
-// aqui va el codigo js que maneja el login,
-// ya sean addeventlisteners, logica del DOM y logica de uso
-// aqui va la estructura de HTML de login
-export default function () {
-  const content = document.createElement('section');
-  content.classList.add('login');
-  content.innerHTML = `
-    <p class="welcome">Bienvenido</p>
-    <h1>Mapask</h1>
-    <p>Conecta con personas que se apasionan por la programación</p>
+/* eslint-disable import/no-cycle */
+import { loginUser, loginUserProfile, loginGoogle } from '../auth.js';
+import { onNavigate } from '../routes/app.js';
+import { register } from './register.js';
 
-    <section class="image-login">
-      <img src='https://svgshare.com/i/ept.svg' title='img-login' />
-    </section>
-    <section class="container-login">
-      <h2>Mapask</h2>
-      <form class="form-session" onsubmit="return false">
-        <input class="input input-email" id="inputEmail" type="text" placeholder="Email: " required>
-        <div class="container-email" id="containerEmail"></div>
-        <input class="input input-password" id="inputPassword"
-        type="password" placeholder="Contraseña: ">
-        <div class="container-password" id="containerPassword"></div>
-        <button class="button btn-login" id="btnLogin">Iniciar Sesión</button>
-      </form>
-      <div class="registration">
-        <span>¿No estas en Mapask?</span>
-        <a class="link-registration" id="linkRegistration">Registrate</a>
-      </div>
-      <button class="btn-google" id="btnGoogle">
-        <span class="iconify" data-icon="akar-icons:google-contained-fill"></span>
-        GOOGLE
-      </button>
-      <div id="alertGoogle"></div>
-    </section>
-    <section class="overlay" id="overlay">
-      <div class="popup">
-        <a class="btn-cerrar-popup" id="btnCerrarPopup">X</a>
-        <h3>Registrarte en Mapask</h3>
-        <p> es rápido y fácil</p>
-        <form action="" class="form-registration">
-          <input id="userName" class="input" type="text" placeholder="Nombre: ">
-          <input id="userLastName" class="input" type="text" placeholder="Apellido: ">
-          <input id="inputEmailR" class="input" type="email" placeholder="Correo: ">
-          <input id="inputPasswordR" class="input" type="password" placeholder="Contraseña: ">
-          <input id="inputPassConf" class="input" type="password" placeholder="Confirmar contraseña: ">
-          <div class="container-email-r" id="containerEmailR"></div>
+export default function login() {
+  const expEmail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
+  const expPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
+  const sectionLogin = document.createElement('section');
+  sectionLogin.classList.add('login');
+  // parrafo de bienvenido
+  const pWelcome = document.createElement('p');
+  pWelcome.classList.add('welcome');
+  pWelcome.innerText = 'Bienvenido';
+  // titulo principal del proyecto
+  const titleProject = document.createElement('h1');
+  titleProject.innerText = 'Mapask';
+  // parrafo del eslogan
+  const pSlogan = document.createElement('p');
+  pSlogan.innerText = 'Conecta con personas que se apasionan por la programación';
+  // contenedor de imagen principal
+  const containerImageLogin = document.createElement('picture');
+  containerImageLogin.classList.add('image-login');
+  const imageLogin = document.createElement('img');
+  imageLogin.src = 'https://svgshare.com/i/ept.svg';
+  imageLogin.title = 'img-login';
+  // contenedor de logueo
+  const containerLogin = document.createElement('section');
+  containerLogin.classList.add('container-login');
+  // titulo secondario
+  const titleProjectSecond = document.createElement('h2');
+  titleProjectSecond.innerText = 'Mapask';
+  // Formulario de logueo
+  const formLogin = document.createElement('form');
+  formLogin.classList.add('form-session');
+  formLogin.onsubmit = 'return false';
+  // input de email
+  const formInputEmail = document.createElement('input');
+  formInputEmail.classList.add('input');
+  formInputEmail.classList.add('input-email');
+  formInputEmail.id = 'inputEmail';
+  formInputEmail.type = 'text';
+  formInputEmail.placeholder = 'Email: ';
+  formInputEmail.required = 'required';
+  // contenedor para la alerta de email
+  const containerAlertlEmail = document.createElement('div');
+  containerAlertlEmail.classList.add('container-email');
+  containerAlertlEmail.id = 'containerEmail';
+  // input de password
+  const formInputPassword = document.createElement('input');
+  formInputPassword.classList.add('input');
+  formInputPassword.classList.add('input-password');
+  formInputPassword.id = 'inputPassword';
+  formInputPassword.type = 'password';
+  formInputPassword.placeholder = 'Contraseña: ';
+  // contenedor para la alerta de password
+  const containerAlertlPassword = document.createElement('div');
+  containerAlertlPassword.classList.add('container-password');
+  containerAlertlPassword.id = 'containerPassword';
+  // boton de iniciar sesion
+  const formButton = document.createElement('button');
+  formButton.classList.add('button');
+  formButton.classList.add('btn-login');
+  formButton.id = 'btnLogin';
+  formButton.type = 'password';
+  formButton.innerText = 'Iniciar Sesion ';
+  // contenedor de link de registro
+  const divRegistration = document.createElement('div');
+  divRegistration.classList.add('registration');
+  const spanMessage = document.createElement('span');
+  spanMessage.innerText = '¿No estas en Mapask?';
+  const linkRegistration = document.createElement('a');
+  linkRegistration.classList.add('link-registration');
+  linkRegistration.id = 'linkRegistration';
+  linkRegistration.innerText = 'Registrate';
+  // contenedor de boton de google
+  const buttonGoogle = document.createElement('button');
+  buttonGoogle.classList.add('btn-google');
+  buttonGoogle.id = 'btnGoogle';
+  buttonGoogle.innerText = 'GOOGLE';
+  const spanIconGoogle = document.createElement('span');
+  spanIconGoogle.classList.add('iconify');
+  spanIconGoogle.dataset.icon = 'akar-icons:google-contained-fill';
 
-          <div class="date-of-birth">
-            <label for="">Fecha de Nacimiento: </label>
-            <input id="dateOfBirth" type="date">
-          </div>
-          
-          <button class="button btn-registration" id="btnRegistration">Registrate</button>
-        </form>
-      </div>
-    </section>
-`;
-  return content;
+  // Contenedor alerta de Google
+
+  const alertGoogle = document.createElement('div');
+
+  containerImageLogin.appendChild(imageLogin);
+
+  formLogin.appendChild(formInputEmail);
+  formLogin.appendChild(containerAlertlEmail);
+  formLogin.appendChild(formInputPassword);
+  formLogin.appendChild(containerAlertlPassword);
+  formLogin.appendChild(formButton);
+
+  divRegistration.appendChild(spanMessage);
+  divRegistration.appendChild(linkRegistration);
+
+  buttonGoogle.appendChild(spanIconGoogle);
+
+  containerLogin.appendChild(titleProjectSecond);
+  containerLogin.appendChild(formLogin);
+  containerLogin.appendChild(divRegistration);
+
+  containerLogin.appendChild(buttonGoogle);
+  containerLogin.appendChild(alertGoogle);
+
+  sectionLogin.appendChild(pWelcome);
+  sectionLogin.appendChild(titleProject);
+  sectionLogin.appendChild(pSlogan);
+  sectionLogin.appendChild(containerImageLogin);
+  sectionLogin.appendChild(containerLogin);
+
+  formButton.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const email = formInputEmail.value;
+    const password = formInputPassword.value;
+
+    if (expEmail.test(email) && expPassword.test(password)) {
+      const user = await loginUser(email, password);
+      if (!user) {
+        containerAlertlPassword.innerHTML = '<span class="red"> Usuario no registrado </span>';
+      } else {
+        containerAlertlPassword.innerHTML = '';
+        onNavigate('/home');
+        const userId = (loginUserProfile()).uid;
+        localStorage.setItem('userId', userId);
+      }
+    } else {
+      containerAlertlPassword.innerHTML = '<span class="red"> Correo o constraseña inválido </span>';
+    }
+  });
+
+  buttonGoogle.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const userGoogle = await loginGoogle();
+    if (!userGoogle) {
+      alertGoogle.innerHTML = '<span class="red"> Error al iniciar sesión </span>';
+    } else {
+      alertGoogle.innerHTML = '';
+      onNavigate('/home');
+    }
+  });
+
+  linkRegistration.addEventListener('click', () => {
+    sectionLogin.appendChild(register());
+  });
+
+  return sectionLogin;
 }

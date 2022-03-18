@@ -1,37 +1,21 @@
 // Este es el punto de entrada de tu aplicacion
-import {
+/* import {
   loginGoogle, registerUser, loginUser, loginUserProfile, updateUsers, activeSession, logOut,
-} from './auth.js';
-import { onNavigate } from './routes/app.js';
+} from './auth.js'; */
+// import { onNavigate } from './routes/app.js';
 import {
   savePost, onGetPosts, deletePost, getPost, updatePost,
 } from './firestore.js';
 
-import { createUser, getUser, updateUser } from './user-firestore.js';
+import { getUser, updateUser } from './user-firestore.js';
 /* import { listPosts } from './components/posts.js'; */
 
 // import { myFunction } from './lib/index.js';
 
-// Constante de validacion de correo y constraseña
-const expEmail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
-const expPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
-const alertEmailPassword = document.querySelector('#containerPassword');
-const alertEmailR = document.querySelector('#containerEmailR');
-const alertGoogle = document.getElementById('alertGoogle');
-
-// constantes de popup
-const linkRegistration = document.getElementById('linkRegistration');
-const cerrarPopup = document.querySelector('#btnCerrarPopup');
-const overlay = document.querySelector('#overlay');
-const inputEmail = document.querySelector('#inputEmailR');
-const inputPassword = document.querySelector('#inputPasswordR');
-const inputPassConfirm = document.querySelector('#inputPassConf');
-const btnRegistration = document.querySelector('#btnRegistration');
-
-activeSession();
+// activeSession();
 
 // Sección de Listar post (Delete, Edit)
-function listPosts() {
+export function listPosts() {
   const formHome = document.getElementById('formHome');
   const postContainer = document.getElementById('postContainer');
   const btnPost = document.getElementById('btnPost');
@@ -134,7 +118,7 @@ function listPosts() {
   });
 }
 
-async function updateProfileUsers() {
+export async function updateProfileUsers() {
   const containerProfileUsers = document.getElementById('containerProfileUsers');
   const formProfile = document.getElementById('formProfile');
   const uid = localStorage.getItem('userId');
@@ -176,99 +160,4 @@ async function updateProfileUsers() {
   } else {
     console.log('User no Existe');
   }
-}
-
-document.addEventListener('click', (e) => {
-  if (e.target.id === 'profileBtn') {
-    e.preventDefault();
-    onNavigate('/profile');
-    updateProfileUsers();
-  } else if (e.target.id === 'home') {
-    e.preventDefault();
-    onNavigate('/home');
-    listPosts();
-  } else if (e.target.id === 'logOut') {
-    e.preventDefault();
-    logOut();
-    onNavigate('/');
-  }
-});
-
-if (document.querySelector('.login')) {
-  // Seccion registrarse
-  linkRegistration.addEventListener('click', () => {
-    console.log('Me hiciste click');
-    overlay.style.display = 'flex';
-  });
-
-  cerrarPopup.addEventListener('click', () => {
-    overlay.style.display = 'none';
-  });
-
-  btnRegistration.addEventListener('click', async (e) => {
-    e.preventDefault();
-    if (
-      expEmail.test(inputEmail.value)
-      && expPassword.test(inputPassword.value)
-      && expPassword.test(inputPassConfirm.value)
-    ) {
-      if (inputPassword.value === inputPassConfirm.value) {
-        const user = await registerUser(inputEmail.value, inputPassword.value);
-        const userName = document.getElementById('userName').value;
-        const userLastName = document.getElementById('userLastName').value;
-        const date = document.getElementById('dateOfBirth').value;
-        console.log(user);
-        const id = user.uid;
-        console.log(id);
-        onNavigate('/profile');
-        updateUsers(`${userName} ${userLastName}`);
-        await createUser(id, {
-          userName,
-          userLastName,
-          date,
-        });
-        localStorage.setItem('userId', id);
-      } else {
-        alertEmailR.innerHTML = '<span class="red"> Contraseñas no coinciden </span>';
-      }
-    } else {
-      alertEmailR.innerHTML = '<span class="red"> Correo o contraseña inválido </span>';
-    }
-  });
-
-  // Seccion Iniciar sesion
-  document.querySelector('#btnLogin').addEventListener('click', async (e) => {
-    e.preventDefault();
-    const email = document.querySelector('#inputEmail').value;
-    const password = document.querySelector('#inputPassword').value;
-
-    if (expEmail.test(email) && expPassword.test(password)) {
-      const user = await loginUser(email, password);
-      if (!user) {
-        alertEmailPassword.innerHTML = '<span class="red"> Usuario no registrado </span>';
-      } else {
-        alertEmailPassword.innerHTML = '';
-        onNavigate('/home');
-        listPosts();
-        const userId = (loginUserProfile()).uid;
-        localStorage.setItem('userId', userId);
-      }
-    } else {
-      alertEmailPassword.innerHTML = '<span class="red"> Correo o constraseña inválido </span>';
-    }
-  });
-
-  // Seccion Boton de loguearse con google
-  const btnLoginGoogle = document.getElementById('btnGoogle');
-  btnLoginGoogle.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const userGoogle = await loginGoogle();
-    if (!userGoogle) {
-      alertGoogle.innerHTML = '<span class="red"> Error al iniciar sesión </span>';
-    } else {
-      alertGoogle.innerHTML = '';
-      onNavigate('/home');
-      listPosts();
-    }
-  });
 }

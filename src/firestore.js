@@ -12,6 +12,10 @@ import {
   addDoc,
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js';
 
+import initApp from './initApp.js';
+
+initApp();
+
 // Iniciar Firestore
 const db = getFirestore();
 
