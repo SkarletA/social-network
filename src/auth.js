@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-unused-vars */
 import {
   getAuth,
@@ -9,7 +10,7 @@ import {
   onAuthStateChanged,
   signOut,
   /* eslint import/no-unresolved: */
-} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
+} from './firebase.js';
 import { onNavigate } from './routes/app.js';
 import initApp from './initApp.js';
 
@@ -86,11 +87,9 @@ export const activeSession = () => {
   /* const user = auth.currentUser;
   if (user !== null) {
     if (idSession) {
-      console.log('Estoy entrando a home');
       onNavigate('/home');
     }
   } else {
-    console.log('No estoy entrando al home');
     onNavigate('/login');
   } */
 

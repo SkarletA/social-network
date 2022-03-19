@@ -10,7 +10,7 @@ import {
   onSnapshot,
   collection,
   addDoc,
-} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js';
+} from './firebase.js';
 
 import initApp from './initApp.js';
 
