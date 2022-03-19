@@ -3,19 +3,19 @@
   loginGoogle, registerUser, loginUser, loginUserProfile, updateUsers, activeSession, logOut,
 } from './auth.js'; */
 // import { onNavigate } from './routes/app.js';
-import {
+/* import {
   savePost, onGetPosts, deletePost, getPost, updatePost,
-} from './firestore.js';
-
-import { getUser, updateUser } from './user-firestore.js';
+} from './firestore.js'; */
+import { activeSession } from './auth.js';
+// import { getUser, updateUser } from './user-firestore.js';
 /* import { listPosts } from './components/posts.js'; */
 
 // import { myFunction } from './lib/index.js';
 
-// activeSession();
+activeSession();
 
 // Sección de Listar post (Delete, Edit)
-export function listPosts() {
+/* export function listPosts() {
   const formHome = document.getElementById('formHome');
   const postContainer = document.getElementById('postContainer');
   const btnPost = document.getElementById('btnPost');
@@ -32,7 +32,7 @@ export function listPosts() {
       postContainer.innerHTML += `
       <div class="post-container-card">
         <p>${post.message}</p>
-        <div class="post-container-btn"> 
+        <div class="post-container-btn">
           <button class="btn btn-primary btn-likes" data-id="${doc.id}">
             <img class="icon-likes" src='https://svgshare.com/i/fEh.svg' title='corazon sin rellenar' />
           </button>
@@ -117,47 +117,48 @@ export function listPosts() {
     }
   });
 }
+ */
 
-export async function updateProfileUsers() {
-  const containerProfileUsers = document.getElementById('containerProfileUsers');
-  const formProfile = document.getElementById('formProfile');
-  const uid = localStorage.getItem('userId');
+// export async function updateProfileUsers() {
+//   const containerProfileUsers = document.getElementById('containerProfileUsers');
+//   const formProfile = document.getElementById('formProfile');
+//   const uid = localStorage.getItem('userId');
 
-  if (uid) {
-    const docUser = await getUser(uid);
-    const userName = docUser.data().userName;
-    const userLastName = docUser.data().userLastName;
-    const dateOfBirth = docUser.data().date;
+//   if (uid) {
+//     const docUser = await getUser(uid);
+//     const userName = docUser.data().userName;
+//     const userLastName = docUser.data().userLastName;
+//     const dateOfBirth = docUser.data().date;
 
-    containerProfileUsers.innerHTML = `
-      <p>${userName} ${userLastName} </p>
-      <p>${dateOfBirth}</p>
-    `;
+//     containerProfileUsers.innerHTML = `
+//       <p>${userName} ${userLastName} </p>
+//       <p>${dateOfBirth}</p>
+//     `;
 
-    formProfile.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const infoProfile = document.createElement('div');
-      infoProfile.classList.add('information-profile');
+//     formProfile.addEventListener('submit', async (e) => {
+//       e.preventDefault();
+//       const infoProfile = document.createElement('div');
+//       infoProfile.classList.add('information-profile');
 
-      const image = formProfile['photo-user'].value;
-      const profession = formProfile['user-profession'].value;
-      const hobbie = formProfile['user-hobbie'].value;
-      const aboutMe = formProfile['user-about-me'].value;
-      await updateUser(uid, {
-        image,
-        profession,
-        hobbie,
-        aboutMe,
-      });
-      infoProfile.innerHTML = `
-      <p>${profession}</p>
-      <p>${hobbie}</p>
-      <p>${aboutMe}</p>
-      `;
-      containerProfileUsers.appendChild(infoProfile);
-      formProfile.reset();
-    });
-  } else {
-    console.log('User no Existe');
-  }
-}
+//       const image = formProfile['photo-user'].value;
+//       const profession = formProfile['user-profession'].value;
+//       const hobbie = formProfile['user-hobbie'].value;
+//       const aboutMe = formProfile['user-about-me'].value;
+//       await updateUser(uid, {
+//         image,
+//         profession,
+//         hobbie,
+//         aboutMe,
+//       });
+//       infoProfile.innerHTML = `
+//       <p>${profession}</p>
+//       <p>${hobbie}</p>
+//       <p>${aboutMe}</p>
+//       `;
+//       containerProfileUsers.appendChild(infoProfile);
+//       formProfile.reset();
+//     });
+//   } else {
+//     console.log('User no Existe');
+//   }
+// }
