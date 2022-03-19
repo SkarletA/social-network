@@ -1,7 +1,7 @@
 /* eslint import/no-cycle: [, { maxDepth: 1 }] */
 import { onNavigate } from '../routes/app.js';
-import { updateProfileUsers, listPosts } from '../main.js';
 import { logOut } from '../auth.js';
+// import profile from './profile.js';
 
 export default function loadNavbar() {
   const navbar = document.createElement('navbar');
@@ -87,13 +87,12 @@ export default function loadNavbar() {
   home.addEventListener('click', (e) => {
     e.preventDefault();
     onNavigate('/home');
-    listPosts();
   });
 
   profile.addEventListener('click', (e) => {
     e.preventDefault();
-    updateProfileUsers();
-    onNavigate('/');
+    // profile();
+    onNavigate('/profile');
   });
 
   return navbar;

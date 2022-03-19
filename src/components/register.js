@@ -4,7 +4,6 @@ import { updateUsers, registerUser } from '../auth.js';
 import { createUser } from '../user-firestore.js';
 
 export function register() {
-  console.log('Entre a register');
   const expEmail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
   const expPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
   const sectionOverlay = document.createElement('section');
@@ -15,7 +14,7 @@ export function register() {
   divPopup.classList.add('popup');
   // boton de cerrar el popup
   const btnClose = document.createElement('a');
-  btnClose.text = 'X';  
+  btnClose.text = 'X';
   btnClose.classList.add('btn-close-popup');
   btnClose.id = 'btnClosePopup';
   // titulo principal del popup
@@ -113,9 +112,7 @@ export function register() {
         const userName = inputUserName.value;
         const userLastName = inputUserLastName.value;
         const date = inputDateRegister.value;
-        console.log(user);
         const id = user.uid;
-        console.log(id);
         onNavigate('/profile');
         updateUsers(`${userName} ${userLastName}`);
         await createUser(id, {
