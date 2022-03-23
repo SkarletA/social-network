@@ -1,85 +1,75 @@
 /* eslint-disable import/no-cycle */
 import loadNavbar from '../components/navbar.js';
-import { updateUser, getUser } from '../user-firestore.js';
+import { listPostsUser } from '../components/postsuser.js';
+import { popUpUser } from '../components/popUser.js';
+import { getUser } from '../user-firestore.js';
 
 export default function profile() {
   const container = document.createElement('div');
+  container.classList.add('container-profile');
   // seccion del contenedor del perfil
   const profileContent = document.createElement('section');
-  profileContent.classList.add('container-profile');
-  // aside principal
+  profileContent.classList.add('container-sections');
+
+  // aside izquierdo
   const asidePrimary = document.createElement('aside');
-  asidePrimary.classList.add('profile-primary');
-  // contenedor de la informacion del perfil del usuario
-  const containerPorfileUsers = document.createElement('section');
-  containerPorfileUsers.classList.add('container-profile-users');
-  containerPorfileUsers.id = 'containerProfileUsers';
-  // boton de actualizar datos
-  const btnUpdate = document.createElement('button');
-  btnUpdate.classList.add('btn-update');
-  btnUpdate.id = 'btnUpdate';
-  btnUpdate.innerText = 'Actualizar datos';
-  // overlay para mostrar los datos actualizar
-  const overlayProfile = document.createElement('section');
-  overlayProfile.classList.add('overlayProfile');
-  const divProfile = document.createElement('div');
-  divProfile.classList.add('contenedor-profile');
-  // formulario de los datos personales del usuario
-  const formProfile = document.createElement('form');
-  formProfile.id = 'formProfile';
-  formProfile.classList.add('form-Profile');
-  // input imagen
-  const inputImage = document.createElement('input');
-  inputImage.type = 'file';
-  inputImage.id = 'photo-user';
-  inputImage.name = 'photo-user';
-  // input profesion
-  const inputProfession = document.createElement('input');
-  inputProfession.type = 'text';
-  inputProfession.id = 'userProfession';
-  inputProfession.name = 'user-profession';
-  inputProfession.classList.add('input');
-  inputProfession.placeholder = 'Profesion: ';
-  // input hobbie
-  const inputHobbie = document.createElement('input');
-  inputHobbie.type = 'text';
-  inputHobbie.id = 'userHobbie';
-  inputHobbie.name = 'user-hobbie';
-  inputHobbie.classList.add('input');
-  inputHobbie.placeholder = 'Me gusta: ';
-  const inputAboutMe = document.createElement('input'); inputImage.type = 'file';
-  inputAboutMe.id = 'userAboutMe';
-  inputAboutMe.type = 'text';
-  inputAboutMe.name = 'user-about-me';
-  inputAboutMe.classList.add('input');
-  inputAboutMe.placeholder = 'Sobre mi: ';
-  // boton guardar datos de usuario
-  const btnSaveInfo = document.createElement('button');
-  btnSaveInfo.type = 'submit';
-  btnSaveInfo.id = 'btnUpdateDats';
-  btnSaveInfo.classList.add('button');
-  btnSaveInfo.classList.add('btn-updateDats');
-  btnSaveInfo.innerText = 'Guardar datos';
-  // seccion de los post de usuarios
+  asidePrimary.classList.add('hash-second');
+
+  // -----> seccion principal del perfil (post de usuarios)
   const sectionPosts = document.createElement('section');
   sectionPosts.classList.add('post-user');
 
+  // Form de enviar y actualizar post
+  const formHome = document.createElement('form');
+  formHome.classList.add('form-home');
+  formHome.id = 'formHome';
+
+  // TextArea del form
+  const textAreaFormHome = document.createElement('textArea');
+  textAreaFormHome.classList.add('description-Posts');
+  textAreaFormHome.id = 'descriptionPosts';
+  textAreaFormHome.name = 'description-posts';
+  textAreaFormHome.placeholder = '¿Sobre que quieres hablar?';
+
+  // Boton del form enviar post
+  const btnSendPost = document.createElement('button');
+  btnSendPost.type = 'submit';
+  btnSendPost.classList.add('btn-post');
+  btnSendPost.id = 'btnPost';
+  btnSendPost.innerText = 'Publicar';
+  formHome.appendChild(textAreaFormHome);
+  formHome.appendChild(btnSendPost);
+
+  // Agregando el form a la Sección principal
+  sectionPosts.appendChild(formHome);
+  sectionPosts.appendChild(listPostsUser(formHome, btnSendPost));
+
+  // Seccion del post container (contiene los posts)
+  const sectionPostsContainer = document.createElement('section');
+  sectionPostsContainer.classList.add('post-container');
+  sectionPostsContainer.id = 'postContainer';
+  sectionPosts.appendChild(sectionPostsContainer);
+  container.appendChild(sectionPosts);
+
+  // Aside Derecho
   const asideSecond = document.createElement('aside');
-  asideSecond.classList.add('hash-secundary');
+  asideSecond.classList.add('profile-primary');
 
-  asidePrimary.appendChild(containerPorfileUsers);
-  containerPorfileUsers.appendChild(btnUpdate);
-  containerPorfileUsers.appendChild(overlayProfile);
+  // contenedor de la informacion del perfil del usuario
+  const containerProfileUsers = document.createElement('section');
+  containerProfileUsers.classList.add('container-profile-users');
+  containerProfileUsers.id = 'containerProfileUsers';
 
-  overlayProfile.appendChild(divProfile);
+  // boton de actualizar datos
+  const btnUpdate = document.createElement('button');
+  btnUpdate.classList.add('btn-update');
+  btnUpdate.classList.add('button');
+  btnUpdate.id = 'btnUpdate';
+  btnUpdate.innerText = 'Actualizar datos';
 
-  divProfile.appendChild(formProfile);
+  // asideSecond.appendChild(dataUser());
 
-  formProfile.appendChild(inputImage);
-  formProfile.appendChild(inputProfession);
-  formProfile.appendChild(inputHobbie);
-  formProfile.appendChild(inputAboutMe);
-  formProfile.appendChild(btnSaveInfo);
+  asideSecond.appendChild(containerProfileUsers);
 
   profileContent.appendChild(asidePrimary);
   profileContent.appendChild(sectionPosts);
@@ -89,60 +79,40 @@ export default function profile() {
   container.appendChild(profileContent);
 
   const uid = localStorage.getItem('userId');
-  // btnUpdate.addEventListener('click', async () => {
-  //   const docUser = await saveDataUser(uid);
-  // });
+
   async function loadProfile(userId) {
     if (userId) {
       const docUser = await getUser(userId);
       const userName = docUser.data().userName;
       const userLastName = docUser.data().userLastName;
       const dateOfBirth = docUser.data().date;
+      const profession = docUser.data().profession;
+      const hobbie = docUser.data().hobbie;
+      const aboutMe = docUser.data().aboutMe;
       const infoUserName = document.createElement('p');
       infoUserName.innerText = `${userName} ${userLastName} `;
 
       const infoDateOfBirth = document.createElement('p');
       infoDateOfBirth.innerText = `${dateOfBirth}`;
 
-      containerPorfileUsers.appendChild(infoUserName);
-      containerPorfileUsers.appendChild(infoDateOfBirth);
+      const infoProfession = document.createElement('p');
+      infoProfession.innerText = `${profession}`;
 
-      formProfile.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const infoProfile = document.createElement('div');
-        infoProfile.classList.add('information-profile');
+      const infoHobbie = document.createElement('p');
+      infoHobbie.innerText = `${hobbie}`;
 
-        const image = inputImage.value;
-        const profession = inputProfession.value;
-        const hobbie = inputHobbie.value;
-        const aboutMe = inputAboutMe.value;
-        await updateUser(userId, {
-          image,
-          profession,
-          hobbie,
-          aboutMe,
-        });
+      const infoAboutMe = document.createElement('p');
+      infoAboutMe.innerText = `${aboutMe}`;
 
-        const infoProfession = document.createElement('p');
-        infoProfession.innerText = `${profession}`;
-
-        const infoHobbie = document.createElement('p');
-        infoHobbie.innerText = `${hobbie}`;
-
-        const infoAboutMe = document.createElement('p');
-        infoAboutMe.innerText = `${aboutMe}`;
-
-        infoProfile.appendChild(infoProfession);
-        infoProfile.appendChild(infoHobbie);
-        infoProfile.appendChild(infoAboutMe);
-
-        containerPorfileUsers.appendChild(infoProfile);
-        formProfile.reset();
-      });
-    }// else {
-
-    // }
+      containerProfileUsers.appendChild(infoUserName);
+      containerProfileUsers.appendChild(infoDateOfBirth);
+      containerProfileUsers.appendChild(infoProfession);
+      containerProfileUsers.appendChild(infoHobbie);
+      containerProfileUsers.appendChild(infoAboutMe);
+    }
   } loadProfile(uid);
+
+  containerProfileUsers.appendChild(btnUpdate);
+  btnUpdate.addEventListener('click', () => container.appendChild(popUpUser()));
   return container;
-  // loadProfile(uid);
 }

@@ -18,4 +18,5 @@ export default function initApp() {
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
+  // const storage = firebase.storage();
 }

@@ -8,16 +8,16 @@ export default function loadNavbar() {
   navbar.classList.add('nav-bar');
   const navbarContainer = document.createElement('div');
   navbarContainer.classList.add('nav-bar-container');
-  const formSearch = document.createElement('form');
-  formSearch.classList.add('search-bar');
-  const inputSearch = document.createElement('input');
-  inputSearch.classList.add('search-in');
-  inputSearch.type = 'text';
-  inputSearch.placeholder = 'Buscar en Mapask';
-  const imgSearch = document.createElement('img');
-  imgSearch.classList.add('search');
-  imgSearch.src = 'https://svgshare.com/i/fAN.svg';
-  imgSearch.title = 'Search';
+  // const formSearch = document.createElement('form');
+  // formSearch.classList.add('search-bar');
+  // const inputSearch = document.createElement('input');
+  // inputSearch.classList.add('search-in');
+  // inputSearch.type = 'text';
+  // inputSearch.placeholder = 'Buscar en Mapask';
+  // const imgSearch = document.createElement('img');
+  // imgSearch.classList.add('search');
+  // imgSearch.src = 'https://svgshare.com/i/fAN.svg';
+  // imgSearch.title = 'Search';
   const iconMapask = document.createElement('ul');
   iconMapask.classList.add('icon-home');
   const listMapask = document.createElement('li');
@@ -53,7 +53,6 @@ export default function loadNavbar() {
   const profileImg = document.createElement('img');
   profileImg.classList.add('img-profile');
   profileImg.src = 'https://svgshare.com/i/f5r.svg';
-  profileImg.title = 'Profile';
 
   profile.appendChild(profileImg);
   listProfile.appendChild(profile);
@@ -69,10 +68,10 @@ export default function loadNavbar() {
   listMapask.appendChild(mapask);
   iconMapask.appendChild(listMapask);
 
-  formSearch.appendChild(inputSearch);
-  formSearch.appendChild(imgSearch);
+  // formSearch.appendChild(inputSearch);
+  // formSearch.appendChild(imgSearch);
 
-  navbarContainer.appendChild(formSearch);
+  // navbarContainer.appendChild(formSearch);
   navbarContainer.appendChild(iconMapask);
   navbarContainer.appendChild(listIcons);
 

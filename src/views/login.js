@@ -83,7 +83,6 @@ export default function login() {
   spanIconGoogle.dataset.icon = 'akar-icons:google-contained-fill';
 
   // Contenedor alerta de Google
-
   const alertGoogle = document.createElement('div');
 
   containerImageLogin.appendChild(imageLogin);
@@ -96,9 +95,7 @@ export default function login() {
 
   divRegistration.appendChild(spanMessage);
   divRegistration.appendChild(linkRegistration);
-
   buttonGoogle.appendChild(spanIconGoogle);
-
   containerLogin.appendChild(titleProjectSecond);
   containerLogin.appendChild(formLogin);
   containerLogin.appendChild(divRegistration);
