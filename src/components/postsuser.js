@@ -1,34 +1,31 @@
 /* eslint-disable import/no-cycle */
-/* eslint-disable implicit-arrow-linebreak */
 import {
-  onGetPosts,
-  deletePost,
-  getPost,
-  savePost,
-  updatePost,
+  deletePost, getPost, savePost, updatePost, getPostCondition,
 } from '../firestore.js';
+import { getAuth } from '../firebase.js';
+import { getUser } from '../user-firestore.js';
 import { onNavigate } from '../routes/app.js';
 
-import { getUser } from '../user-firestore.js';
-
-export function listPosts(formHomeParam, btnPostParam) {
+export function listPostsUser(formHomeParam, btnPostParam) {
+  const auth = getAuth;
   const formHome = formHomeParam;
   const btnPost = btnPostParam;
 
   const postContainer = document.createElement('div');
+
   let editStatus = false;
   let id = '';
-  /* user = getUser();
-  let nameUser; */
-  onGetPosts((querySnapshot) => {
-    postContainer.innerHTML = '';
-    // let data = {};
+  const uid = localStorage.getItem('userId');
+
+  async function postUser(userId) {
+    const querySnapshot = await getPostCondition(userId);
+
     querySnapshot.forEach(async (doc) => {
       const post = doc.data();
       const user = await getUser(post.userId);
       const name = user.data().userName;
       const lastName = user.data().userLastName;
-      console.log(user.data());
+      console.log(auth);
 
       const postContainerCard = document.createElement('section');
       postContainerCard.classList.add('post-container-card');
@@ -89,30 +86,32 @@ export function listPosts(formHomeParam, btnPostParam) {
       const btnsLikes = document.querySelectorAll('.btn-likes');
       btnsLikes.forEach((btn) => {
         btn.addEventListener('click', async ({ target: { dataset } }) => {
-          console.log('entre');
-          const uid = localStorage.getItem('userId');
+          const uuid = localStorage.getItem('userId');
           const postId = dataset.id;
           const postData = await getPost(postId);
           let likes = postData.data().likes;
           const postLikes = postData.data().postLikes;
-          const position = postLikes.indexOf(uid);
+          const position = postLikes.indexOf(uuid);
           if (position !== -1) {
             postLikes.splice(position, 1);
             likes -= 1;
+            onNavigate('/profile');
           } else {
-            postLikes.push(uid);
+            postLikes.push(uuid);
             likes += 1;
+            onNavigate('/profile');
           }
-          console.log(postLikes);
           updatePost(postId, { likes, postLikes });
         });
       });
+
       // Borrar un post
       const btnsDelete = postContainer.querySelectorAll('.btn-delete');
       btnsDelete.forEach((btn) => btn.addEventListener('click', async ({ target: { dataset } }) => {
         try {
           if (window.confirm('Estas seguro de que quieres eliminar este post?')) {
             await deletePost(dataset.id);
+            onNavigate('/profile');
           }
         } catch (error) {
           console.log(error);
@@ -123,9 +122,8 @@ export function listPosts(formHomeParam, btnPostParam) {
       const btnsEdit = postContainer.querySelectorAll('.btn-edit');
       btnsEdit.forEach((btn) => btn.addEventListener('click', async (e) => {
         try {
-          const doc = await getPost(e.target.dataset.id);
-          const post = doc.data();
-          formHome['description-posts'].value = post.message;
+          await getPost(e.target.dataset.id);
+          formHome['description-posts'].value = doc.data().message;
 
           editStatus = true;
           id = doc.id;
@@ -135,17 +133,18 @@ export function listPosts(formHomeParam, btnPostParam) {
         }
       }));
     });
-  });
+  }
 
   // Enviamos el post
   formHome.addEventListener('submit', async (e) => {
     e.preventDefault();
     const textArea = formHome['description-posts'];
-    const uid = localStorage.getItem('userId');
+    const userId = localStorage.getItem('userId');
 
     try {
       if (!editStatus) {
-        await savePost(textArea.value, uid);
+        await savePost(textArea.value, userId);
+        onNavigate('/profile');
       } else {
         await updatePost(id, {
           message: textArea.value,
@@ -154,6 +153,7 @@ export function listPosts(formHomeParam, btnPostParam) {
         editStatus = false;
         id = '';
         btnPost.innerHTML = 'Publicar';
+        onNavigate('/profile');
       }
 
       formHome.reset();
@@ -161,5 +161,6 @@ export function listPosts(formHomeParam, btnPostParam) {
       console.log(error);
     }
   });
+  postUser(uid);
   return postContainer;
 }
