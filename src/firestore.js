@@ -10,6 +10,8 @@ import {
   onSnapshot,
   collection,
   addDoc,
+  query,
+  where,
 } from './firebase.js';
 
 import initApp from './initApp.js';
@@ -19,7 +21,9 @@ initApp();
 // Iniciar Firestore
 const db = getFirestore();
 
-export const savePost = (message, userId) => addDoc(collection(db, 'posts'), { message, userId, likes: 0 });
+export const savePost = (message, userId) => addDoc(collection(db, 'posts'), {
+  message, userId, likes: 0, postLikes: [],
+});
 
 export const onGetPosts = (callback) => onSnapshot(collection(db, 'posts'), callback);
 
@@ -31,4 +35,9 @@ export const getPosts = () => getDocs(collection(db, 'posts'));
 
 export async function getPost(id) {
   return getDoc(doc(db, 'posts', id));
+}
+
+export async function getPostCondition(userId) {
+  const q = query(collection(db, 'posts'), where('userId', '==', userId));
+  return getDocs(q);
 }

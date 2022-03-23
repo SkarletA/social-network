@@ -5,6 +5,13 @@ export {
   getDoc,
   setDoc,
   updateDoc,
+  query,
+  where,
+  deleteDoc,
+  getDocs,
+  onSnapshot,
+  collection,
+  addDoc,
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js';
 
 export {
@@ -18,11 +25,3 @@ export {
   signOut,
   /* eslint import/no-unresolved: */
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
-
-export {
-  deleteDoc,
-  getDocs,
-  onSnapshot,
-  collection,
-  addDoc,
-} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js';

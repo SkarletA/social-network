@@ -16,9 +16,15 @@ body {
   width: 100vw;
 }
 
+.root {
+  height: 100vh;
+  width: 100vw;
+}
+
 input{
   caret-color: deeppink;
 }
+
 /*seccion Imagen*/
 .image-login img {
   width: 70vw;
@@ -68,7 +74,7 @@ input{
 .container-login {
   align-items: center;
   display: flex;
-  background-color: #fce2ba;
+  background-color: #c1e6f0;
   border-radius: 1.5em;
   flex-direction: column;
   margin-top: 1.5em;
@@ -128,8 +134,8 @@ input{
 }
 
 .btn-google {
-  background-color: #db4a39;
-  border: 0.1em solid #db4a39;
+  background-color: #7CB8DD;
+  border: 0.1em solid #7CB8DD;
   border-radius: 1em;
   color: #fff;
   cursor: pointer;
@@ -313,9 +319,9 @@ input{
 
 /*section home*/
 .container-home{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .form-home {
@@ -328,6 +334,7 @@ input{
 
 .description-Posts{
   border: none;
+  flex-grow: 1;
   font-family: var(--fontTexts);
   font-size: .8em;
   height: 5em;
@@ -364,7 +371,7 @@ input{
   justify-content: flex-end;
   margin-top: 1em;
   padding: 0.2em;
-  width: 23em;
+  min-width: 23em;
 }
 .post-container-card p {
   padding: 0.3em;
@@ -398,23 +405,121 @@ input{
   width: 2em;
   height: 1.5em;
 }
+.icon-heart {
+  width: 2em;
+  height: 1.5em;
+}
+
+/* aside del home */
+/*NewUsers*/
+.usersContainer {
+  display: none;
+  border: #0073b1;
+  border-radius: 1.3em;
+  border-style: solid;
+  border-width: 0.1em;
+  height: 22em;
+  margin: 1em 8em;
+  width: 15em;
+}
+
+.user {
+  align-items: center;
+  display: flex;
+  margin: 0.5em 0;
+  padding: 0 1em;
+}
+
+.userName {
+  font-family: var(--fontTexts);
+  font-size: 1.2em;
+  margin-left: 1em;
+}
+
+.userImage {
+  border-radius: 17em;
+  width: 3em;
+}
+
+.bannerUsers {
+  align-items: center;
+  background-color: #0073b1;
+  border-top-left-radius: 1.3em;
+  border-top-right-radius: 1.3em;
+  color: #fff;
+  display: flex;
+  font-family: var(--fontTexts);
+  height: 3em;
+  justify-content: center;
+  margin: -0.1em;
+  width: 15em;
+}
+
+/* Hashtags */
+.hashContainer {
+  border: #0073b1;
+  border-radius: 1.3em;
+  border-style: solid;
+  border-width: 0.1em;
+  display: none;
+  flex-direction: column;
+  height: 13em;
+  justify-content: space-between;
+  padding: 1em;
+  margin: 4em 8em;
+  width: 15em;
+}
+
+
+.hashText {
+  color: #0073b1;
+  cursor: pointer;
+  font-family: var(--fontTexts);
+  font-size: 1.2em;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+
+.bannerHash {
+  align-items: center;
+  background-color: #0073b1;
+  border-top-left-radius: 1.3em;
+  border-top-right-radius: 1.3em;
+  color: #fff;
+  display: flex;
+  font-family: var(--fontTexts);
+  height: 3em;
+  justify-content: center;
+  margin: -1.0999999999999996em;
+  width: 15em;
+}
+
 
 /* Seccion del perfil */
 .container-profile {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+}
+
+.container-sections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 3em;
 }
 
 .profile-primary {
   align-items: center;
   border: 0.16em solid #0073b1;
   border-radius: 1em;
-  display: flex;
+  display: none;
   flex-direction: column;
   font-family: var(--fontTexts);
+  height: 20em;
   margin-left: 0.5em;
+  margin-right: 4em;
   margin-top: 1em;
   padding: 0.8em;
+  text-align: center;
 }
 
 .form-Profile {
@@ -424,6 +529,23 @@ input{
 }
 .form-Profile input {
   border: 0.16em solid #0073b1;
+}
+
+
+/*Profile User*/
+.userProfile {
+  border: #0073b1;
+  border-radius: 1.3em;
+  border-style: solid;
+  border-width: 0.1em;
+  height: 20em;
+  padding: 2em;
+  margin: 1em;
+  width: 18em;
+}
+
+.title-data-user {
+  text-align: center;
 }
 
 @media (min-width: 480px) {
@@ -504,6 +626,24 @@ input{
 
   .date-of-birth {
     font-size: 1.205em;
+  }
+
+  .container-profile .popup{
+    top: 0;
+  }
+
+  /* aside del home */
+  .usersContainer{
+    display: block;
+  }
+
+  .hashContainer {
+    display: flex;
+  }
+
+  /* asise del profile */
+  .profile-primary {
+    display: flex;
   }
 
   /*navbar*/
