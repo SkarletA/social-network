@@ -8,6 +8,7 @@ import { listPosts } from '../components/posts.js';
 export default function home() {
   // Home
   const homes = document.createElement('section');
+  homes.id = 'homes';
   homes.appendChild(loadNavbar());
 
   // Contenedor de Home
