@@ -83,31 +83,31 @@ export function listPostsUser(formHomeParam, btnPostParam) {
 
       postContainer.appendChild(postContainerCard);
       // like a post
-      const btnsLikes = document.querySelectorAll('.btn-likes');
-      btnsLikes.forEach((btn) => {
-        btn.addEventListener('click', async ({ target: { dataset } }) => {
-          const uuid = localStorage.getItem('userId');
-          const postId = dataset.id;
-          const postData = await getPost(postId);
-          let likes = postData.data().likes;
-          const postLikes = postData.data().postLikes;
-          const position = postLikes.indexOf(uuid);
-          if (position !== -1) {
-            postLikes.splice(position, 1);
-            likes -= 1;
-            onNavigate('/profile');
-          } else {
-            postLikes.push(uuid);
-            likes += 1;
-            onNavigate('/profile');
-          }
-          updatePost(postId, { likes, postLikes });
-        });
+      // const btnsLikes = document.querySelectorAll('.btn-likes');
+      // btnsLikes.forEach((btn) => {
+      btnLikePost.addEventListener('click', async ({ target: { dataset } }) => {
+        const uuid = localStorage.getItem('userId');
+        const postId = dataset.id;
+        const postData = await getPost(postId);
+        let likes = postData.data().likes;
+        const postLikes = postData.data().postLikes;
+        const position = postLikes.indexOf(uuid);
+        if (position !== -1) {
+          postLikes.splice(position, 1);
+          likes -= 1;
+          onNavigate('/profile');
+        } else {
+          postLikes.push(uuid);
+          likes += 1;
+          onNavigate('/profile');
+        }
+        updatePost(postId, { likes, postLikes });
       });
 
       // Borrar un post
-      const btnsDelete = postContainer.querySelectorAll('.btn-delete');
-      btnsDelete.forEach((btn) => btn.addEventListener('click', async ({ target: { dataset } }) => {
+      // const btnsDelete = postContainer.querySelectorAll('.btn-delete');
+      // btnsDelete.forEach((btn) => btn
+      btnDeletePost.addEventListener('click', async ({ target: { dataset } }) => {
         try {
           if (window.confirm('Estas seguro de que quieres eliminar este post?')) {
             await deletePost(dataset.id);
@@ -116,11 +116,12 @@ export function listPostsUser(formHomeParam, btnPostParam) {
         } catch (error) {
           console.log(error);
         }
-      }));
+      });
 
       // Editamos el post
-      const btnsEdit = postContainer.querySelectorAll('.btn-edit');
-      btnsEdit.forEach((btn) => btn.addEventListener('click', async (e) => {
+      // const btnsEdit = postContainer.querySelectorAll('.btn-edit');
+      // btnsEdit.forEach((btn) => btn
+      btnEditPost.addEventListener('click', async (e) => {
         try {
           await getPost(e.target.dataset.id);
           formHome['description-posts'].value = doc.data().message;
@@ -131,7 +132,7 @@ export function listPostsUser(formHomeParam, btnPostParam) {
         } catch (error) {
           console.log(error);
         }
-      }));
+      });
     });
   }
 

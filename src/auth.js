@@ -1,5 +1,6 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-unused-vars */
+/* eslint import/no-unresolved: */
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -9,7 +10,6 @@ import {
   updateProfile,
   onAuthStateChanged,
   signOut,
-  /* eslint import/no-unresolved: */
 } from './firebase.js';
 import { onNavigate } from './routes/app.js';
 import initApp from './initApp.js';

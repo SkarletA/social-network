@@ -1,3 +1,6 @@
+/* eslint-disable import/no-cycle */
+import { popUpDelete } from './popDelete.js';
+
 export default function loadHashtag() {
   const hashContainer = document.createElement('div');
   hashContainer.classList.add('hashContainer');
