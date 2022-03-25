@@ -7,9 +7,10 @@ import {
   savePost,
   updatePost,
 } from '../firestore.js';
-import { onNavigate } from '../routes/app.js';
+// import { onNavigate } from '../routes/app.js';
 
 import { getUser } from '../user-firestore.js';
+// import { popUpDelete } from './popDelete.js';
 
 export function listPosts(formHomeParam, btnPostParam) {
   const formHome = formHomeParam;
@@ -86,46 +87,49 @@ export function listPosts(formHomeParam, btnPostParam) {
 
       postContainer.appendChild(postContainerCard);
       // like a post
-      const btnsLikes = document.querySelectorAll('.btn-likes');
-      btnsLikes.forEach((btn) => {
-        btn.addEventListener('click', async ({ target: { dataset } }) => {
-          console.log('entre');
-          const uid = localStorage.getItem('userId');
-          const postId = dataset.id;
-          const postData = await getPost(postId);
-          let likes = postData.data().likes;
-          const postLikes = postData.data().postLikes;
-          const position = postLikes.indexOf(uid);
-          if (position !== -1) {
-            postLikes.splice(position, 1);
-            likes -= 1;
-          } else {
-            postLikes.push(uid);
-            likes += 1;
-          }
-          console.log(postLikes);
-          updatePost(postId, { likes, postLikes });
-        });
+      // const btnsLikes = document.querySelectorAll('.btn-likes');
+      // btnsLikes.forEach((btn) => {btn.
+      btnLikePost.addEventListener('click', async ({ target: { dataset } }) => {
+        console.log('entre');
+        const uid = localStorage.getItem('userId');
+        const postId = dataset.id;
+        const postData = await getPost(postId);
+        let likes = postData.data().likes;
+        const postLikes = postData.data().postLikes;
+        const position = postLikes.indexOf(uid);
+        if (position !== -1) {
+          postLikes.splice(position, 1);
+          likes -= 1;
+        } else {
+          postLikes.push(uid);
+          likes += 1;
+        }
+        console.log(postLikes);
+        updatePost(postId, { likes, postLikes });
       });
+
       // Borrar un post
-      const btnsDelete = postContainer.querySelectorAll('.btn-delete');
-      btnsDelete.forEach((btn) => btn.addEventListener('click', async ({ target: { dataset } }) => {
+      // const btnsDelete = postContainer.querySelectorAll('.btn-delete');
+      // btnsDelete.forEach((btn) => btn
+      btnDeletePost.addEventListener('click', async ({ target: { dataset } }) => {
         try {
+          // postContainer.appendChild(popUpDelete());
+          // const btnAcept = popUpDelete.querySelector('#btnAcept');
           if (window.confirm('Estas seguro de que quieres eliminar este post?')) {
             await deletePost(dataset.id);
           }
         } catch (error) {
           console.log(error);
         }
-      }));
+      });
 
       // Editamos el post
-      const btnsEdit = postContainer.querySelectorAll('.btn-edit');
-      btnsEdit.forEach((btn) => btn.addEventListener('click', async (e) => {
+      // const btnsEdit = postContainer.querySelectorAll('.btn-edit');
+      // btnsEdit.forEach((btn) => btn
+      btnEditPost.addEventListener('click', async (e) => {
         try {
-          const doc = await getPost(e.target.dataset.id);
-          const post = doc.data();
-          formHome['description-posts'].value = post.message;
+          await getPost(e.target.dataset.id);
+          formHome['description-posts'].value = doc.data().message;
 
           editStatus = true;
           id = doc.id;
@@ -133,7 +137,7 @@ export function listPosts(formHomeParam, btnPostParam) {
         } catch (error) {
           console.log(error);
         }
-      }));
+      });
     });
   });
 

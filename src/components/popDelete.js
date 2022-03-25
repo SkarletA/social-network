@@ -1,4 +1,4 @@
-export function popUpUser() {
+export function popUpDelete() {
   const sectionOverlay = document.createElement('section');
   sectionOverlay.classList.add('overlay');
   sectionOverlay.id = 'overlay';

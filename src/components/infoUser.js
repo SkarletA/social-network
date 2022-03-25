@@ -5,13 +5,17 @@ export function dataUser() {
   const divAsideInfo = document.createElement('div');
   divAsideInfo.classList.add('userProfile');
 
-const img = d = document.createElement('img');img.src = 'htt'https://i.postimg.cc/Zqr6SmNK/profile.png' img.classList.add('img-profile');e');
-  divAsideInfo.appendChild(img);  const name = document.createElement('h3');
-  name.innerHTML = 'Mapaskito Vigask';';
+  const img = document.createElement('img');
+  img.src = 'https://i.postimg.cc/Zqr6SmNK/profile.png';
+  img.classList.add('img-profile');
+  divAsideInfo.appendChild(img);
+  const name = document.createElement('h3');
+  name.innerHTML = 'Mapaskito Vigask';
 
   img.addEventListener('click', async () => {
     const uid = localStorage.getItem('userId');
     const user = await getUser(uid);
     console.log(user.data());
-  });  return divAsideInfo;
+  });
+  return divAsideInfo;
 }
