@@ -47,7 +47,3 @@ describe('register', () => {
     expect(response).toEqual({ uid: 'za123' });
   });
 });
-
-// /src/firebase.js
-
-// /src/_mocks_/firebase.js

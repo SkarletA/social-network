@@ -2,10 +2,11 @@ export function popUpDelete() {
   const sectionOverlay = document.createElement('section');
   sectionOverlay.classList.add('overlay');
   sectionOverlay.id = 'overlay';
+  sectionOverlay.style.display = 'none';
 
   // contenedor del popup
   const divPopup = document.createElement('div');
-  divPopup.classList.add('popup');
+  divPopup.classList.add('popup-delete');
 
   // boton de cerrar el popup
   const btnClose = document.createElement('a');
@@ -21,8 +22,8 @@ export function popUpDelete() {
 
   // contenedor de los botones
   const containerBtns = document.createElement('div');
-  containerBtns.id = 'formProfile';
-  containerBtns.classList.add('form-Profile');
+  containerBtns.id = 'containerbtnsPD';
+  containerBtns.classList.add('containerbtnsPD');
 
   // boton de Aceptar
   const btnAcept = document.createElement('button');
@@ -35,6 +36,7 @@ export function popUpDelete() {
 
   // boton de Cancelar
   const btnCancel = document.createElement('button');
+  btnCancel.classList.add('button');
   btnCancel.classList.add('btn-cancel');
   btnCancel.id = 'btnCancel';
   btnCancel.innerText = 'Cancelar';
