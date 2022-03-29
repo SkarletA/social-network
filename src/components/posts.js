@@ -7,10 +7,9 @@ import {
   savePost,
   updatePost,
 } from '../firestore.js';
-// import { onNavigate } from '../routes/app.js';
+import { onNavigate } from '../routes/app.js';
 
 import { getUser } from '../user-firestore.js';
-// import { popUpDelete } from './popDelete.js';
 
 export function listPosts(formHomeParam, btnPostParam) {
   const formHome = formHomeParam;
@@ -28,8 +27,8 @@ export function listPosts(formHomeParam, btnPostParam) {
       const post = doc.data();
       const user = await getUser(post.userId);
       const name = user.data().userName;
+      console.log(name);
       const lastName = user.data().userLastName;
-      console.log(user.data());
 
       const postContainerCard = document.createElement('section');
       postContainerCard.classList.add('post-container-card');
@@ -54,7 +53,8 @@ export function listPosts(formHomeParam, btnPostParam) {
       imgButton.classList.add('icon-likes');
       imgButton.setAttribute('data-id', doc.id);
       imgButton.title = 'corazon sin rellenar';
-      imgButton.src = 'https://svgshare.com/i/fEh.svg';
+      // imgButton.src = 'https://svgshare.com/i/fEh.svg';
+      imgButton.src = 'https://svgshare.com/i/fhR.svg';
       btnLikePost.appendChild(imgButton);
 
       // espacio para el contador de los likes
@@ -90,7 +90,6 @@ export function listPosts(formHomeParam, btnPostParam) {
       // const btnsLikes = document.querySelectorAll('.btn-likes');
       // btnsLikes.forEach((btn) => {btn.
       btnLikePost.addEventListener('click', async ({ target: { dataset } }) => {
-        console.log('entre');
         const uid = localStorage.getItem('userId');
         const postId = dataset.id;
         const postData = await getPost(postId);
@@ -99,12 +98,19 @@ export function listPosts(formHomeParam, btnPostParam) {
         const position = postLikes.indexOf(uid);
         if (position !== -1) {
           postLikes.splice(position, 1);
+          imgButton.classList.remove('icon-likes');
+          imgButton.classList.add('icon-likes-less');
+          imgButton.title = 'corazon relleno';
+          imgButton.src = 'https://svgshare.com/i/fEh.svg';
           likes -= 1;
         } else {
           postLikes.push(uid);
+          imgButton.classList.remove('icon-likes');
+          imgButton.classList.add('icon-likes-full');
+          imgButton.title = 'corazon relleno';
+          imgButton.src = 'https://svgshare.com/i/fhR.svg';
           likes += 1;
         }
-        console.log(postLikes);
         updatePost(postId, { likes, postLikes });
       });
 
@@ -113,11 +119,17 @@ export function listPosts(formHomeParam, btnPostParam) {
       // btnsDelete.forEach((btn) => btn
       btnDeletePost.addEventListener('click', async ({ target: { dataset } }) => {
         try {
-          // postContainer.appendChild(popUpDelete());
-          // const btnAcept = popUpDelete.querySelector('#btnAcept');
-          if (window.confirm('Estas seguro de que quieres eliminar este post?')) {
+          const sectionOver = document.querySelector('#overlay');
+          sectionOver.style.display = 'flex';
+          const btnAcept = document.querySelector('#btnAcept');
+          const btnCancel = document.querySelector('#btnCancel');
+          btnAcept.addEventListener('click', async () => {
             await deletePost(dataset.id);
-          }
+            sectionOver.style.display = 'none';
+          });
+          btnCancel.addEventListener('click', () => {
+            onNavigate('/home');
+          });
         } catch (error) {
           console.log(error);
         }

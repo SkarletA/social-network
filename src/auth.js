@@ -5,6 +5,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  GithubAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
   updateProfile,
@@ -18,6 +19,7 @@ import initApp from './initApp.js';
 initApp();
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
+const providerGit = new GithubAuthProvider();
 auth.languageCode = 'es';
 
 export async function loginGoogle() {
@@ -28,6 +30,20 @@ export async function loginGoogle() {
     })
     .catch((error) => {
       const errorMsg = error.message;
+      results = false;
+    });
+  return results;
+}
+
+export async function loginGithub() {
+  let results;
+  await signInWithPopup(auth, providerGit)
+    .then((result) => {
+      results = result;
+    })
+    .catch((error) => {
+      const errorMsg = error.message;
+      console.log(errorMsg);
       results = false;
     });
   return results;
@@ -81,18 +97,20 @@ export function loginUserProfile() {
   return userValues;
 }
 
-export const logOut = () => auth.signOut();
+export async function logOut() {
+  let resultLogOut;
+  await signOut(auth)
+    .then(() => {
+      resultLogOut = true;
+    })
+
+    .catch(() => {
+      resultLogOut = false;
+    });
+  return resultLogOut;
+}
 
 export const activeSession = () => {
-  /* const user = auth.currentUser;
-  if (user !== null) {
-    if (idSession) {
-      onNavigate('/home');
-    }
-  } else {
-    onNavigate('/login');
-  } */
-
   onAuthStateChanged(auth, (user) => {
     if (user) {
       if (window.location.origin) {

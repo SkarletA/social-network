@@ -18,6 +18,7 @@ export {
   getAuth,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  GithubAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
   updateProfile,

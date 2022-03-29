@@ -4,11 +4,14 @@ import loadHashtag from '../components/hashtag.js';
 import loadNewUsers from '../components/newUsers.js';
 import loadNavbar from '../components/navbar.js';
 import { listPosts } from '../components/posts.js';
+import { popUpDelete } from '../components/popDelete.js';
 
 export default function home() {
   // Home
   const homes = document.createElement('section');
+  homes.classList.add('homes');
   homes.id = 'homes';
+  homes.appendChild(popUpDelete());
   homes.appendChild(loadNavbar());
 
   // Contenedor de Home
@@ -61,35 +64,6 @@ export default function home() {
   asideRightHome.appendChild(loadNewUsers());
   asideRightHome.appendChild(loadHashtag());
   container.appendChild(asideRightHome);
-
   homes.appendChild(container);
   return homes;
 }
-
-/* eslint-disable import/no-cycle */
-// import { listPosts } from './posts.js';
-/* import loadNavbar from './navbar.js';
-
-export default function home() {
-  const container = document.createElement('div');
-  const containerHome = document.createElement('section');
-  containerHome.classList.add('container-home');
-  containerHome.innerHTML = `
-      <aside class="profile-home"></aside>
-      <section class="posts-home">
-        <form class="form-home" id="formHome" method="post">
-          <textarea name="description-posts" class="description-Posts" id="descriptionPosts"
-          cols="4" placeholder="¿Sobre que quieres hablar?"></textarea>
-          <button type="submit" class="btn-post" id="btnPost">Publicar</button>
-        </form>
-        <section class="post-container" id="postContainer">
-        </section>
-      </section>
-      <aside class="hash-home">
-
-      </aside>
-  `;
-  container.appendChild(loadNavbar());
-  container.append(containerHome);
-  return container;
-} */

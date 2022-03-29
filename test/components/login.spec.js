@@ -1,5 +1,7 @@
-// import { loginUser } from '../../src/auth.js';
-import { loginUser } from '../../src/auth.js';
+/**
+ * @jest-environment jsdom
+ */
+import { loginUser, loginGoogle } from '../../src/auth.js';
 import login from '../../src/views/login.js';
 
 jest.mock('../../src/firebase.js');
@@ -32,16 +34,35 @@ describe('login', () => {
     expect(root.innerHTML).toMatchSnapshot();
   });
 
-  // const email = result.querySelector('#inputEmail');
-  // const password = result.querySelector('#inputPassword');
-  // const btn = result.querySelector('#btnLogin');
-  // it('Deberia logear con email y password al darle click', async () => {
-  //   // const containerAlertlPassword = result.querySelector('#containerPassword');
-  //   email.value = 'gsmaggie001@gmail.com';
-  //   password.value = 'T123@maps';
-  //   btn.dispatchEvent(new Event('click'));
-  //   const user = await loginUser(email, password);
+  const email = result.querySelector('#inputEmail');
+  const password = result.querySelector('#inputPassword');
+  test('Te devuelve el id del usuario si esta registrado', async () => {
+    email.value = 'gsmaggie001@gmail.com';
+    password.value = 'T123@maps';
+    const user = await loginUser(email, password);
+    expect(user).toEqual({ uid: 'za123' });
+  });
 
-  //   expect(user).toEqual({ uid: 'za123' });
-  // });
+  test('Deberia dar error al no estar registrado el usuario', async () => {
+    email.value = 'gsmaggie001@gmail.com';
+    password.value = 'T123@maps';
+    try {
+      await loginUser(email, password);
+    } catch (e) {
+      expect(e).toMatch(' Usuario no registrado ');
+    }
+  });
+
+  test('Debería devolver el id del usuario', async () => {
+    const userGoogle = await loginGoogle();
+    expect(userGoogle).toEqual({ uid: 'za123' });
+  });
+
+  test('Debería dar un error al no temrinar el inicio de sesión', async () => {
+    try {
+      await loginGoogle();
+    } catch (e) {
+      expect(e).toMatch(' Error al iniciar sesión ');
+    }
+  });
 });

@@ -1,5 +1,7 @@
 /* eslint-disable import/no-cycle */
-import { loginUser, loginUserProfile, loginGoogle } from '../auth.js';
+import {
+  loginUser, loginUserProfile, loginGoogle, loginGithub,
+} from '../auth.js';
 import { onNavigate } from '../routes/app.js';
 import { register } from '../components/register.js';
 
@@ -73,6 +75,10 @@ export default function login() {
   linkRegistration.classList.add('link-registration');
   linkRegistration.id = 'linkRegistration';
   linkRegistration.innerText = 'Registrate';
+
+  // contenerdor de botones auth
+  const btnsAuthContainer = document.createElement('div');
+  btnsAuthContainer.classList.add('btns-auth-container');
   // contenedor de boton de google
   const buttonGoogle = document.createElement('button');
   buttonGoogle.classList.add('btn-google');
@@ -81,6 +87,17 @@ export default function login() {
   const spanIconGoogle = document.createElement('span');
   spanIconGoogle.classList.add('iconify');
   spanIconGoogle.dataset.icon = 'akar-icons:google-contained-fill';
+  btnsAuthContainer.appendChild(buttonGoogle);
+  // contenedor de boton de Github
+  const buttonGit = document.createElement('button');
+  buttonGit.classList.add('btn-google');
+  buttonGit.id = 'btnGit';
+  const spanIconGit = document.createElement('span');
+  spanIconGit.classList.add('iconify');
+  spanIconGit.dataset.icon = 'akar-icons:google-contained-fill';
+  buttonGit.innerText = 'Git Hub';
+  buttonGit.appendChild(spanIconGit);
+  btnsAuthContainer.appendChild(buttonGit);
 
   // Contenedor alerta de Google
   const alertGoogle = document.createElement('div');
@@ -100,7 +117,7 @@ export default function login() {
   containerLogin.appendChild(formLogin);
   containerLogin.appendChild(divRegistration);
 
-  containerLogin.appendChild(buttonGoogle);
+  containerLogin.appendChild(btnsAuthContainer);
   containerLogin.appendChild(alertGoogle);
 
   sectionLogin.appendChild(pWelcome);
@@ -137,6 +154,18 @@ export default function login() {
     } else {
       alertGoogle.innerHTML = '';
       onNavigate('/home');
+    }
+  });
+
+  buttonGit.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const userGit = await loginGithub();
+    if (!userGit) {
+      alertGoogle.innerHTML = '<span class="red"> Error al iniciar sesión </span>';
+    } else {
+      alertGoogle.innerHTML = '';
+      onNavigate('/home');
+      console.log('me logee');
     }
   });
 
