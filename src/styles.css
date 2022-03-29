@@ -21,7 +21,7 @@ body {
   width: 100vw;
 }
 
-input{
+input {
   caret-color: deeppink;
 }
 
@@ -120,7 +120,7 @@ input{
 }
 
 .link-registration {
-  color:#0073b1;
+  color: #0073b1;
 }
 
 /* alertas */
@@ -134,8 +134,8 @@ input{
 }
 
 .btn-google {
-  background-color: #7CB8DD;
-  border: 0.1em solid #7CB8DD;
+  background-color: #7cb8dd;
+  border: 0.1em solid #7cb8dd;
   border-radius: 1em;
   color: #fff;
   cursor: pointer;
@@ -316,9 +316,8 @@ input{
   width: 2em;
 }
 
-
 /*section home*/
-.popup-delete{
+.popup-delete {
   background-color: #fff;
   border-radius: 1.5em;
   margin-top: -30em;
@@ -356,8 +355,8 @@ input{
   justify-content: center;
 }
 
-.popup-delete .button{
-  border-radius: .5em;
+.popup-delete .button {
+  border-radius: 0.5em;
   height: 2.3em;
   width: 5em;
 }
@@ -366,7 +365,7 @@ input{
   margin-right: 0.5em;
 }
 
-.container-home{
+.container-home {
   display: grid;
   grid-gap: 1em;
   grid-template-columns: repeat(3, 1fr);
@@ -375,36 +374,36 @@ input{
 .form-home {
   background-color: #fff;
   margin-top: 1em;
-  border: .1em solid #0073B1;
+  border: 0.1em solid #0073b1;
   border-radius: 1em;
   display: flex;
   align-items: flex-end;
 }
 
-.description-Posts{
+.description-Posts {
   border: none;
   flex-grow: 1;
   font-family: var(--fontTexts);
-  font-size: .8em;
+  font-size: 0.8em;
   height: 5em;
   margin-left: 0.8em;
   padding-top: 0.1em;
   width: 17.5em;
 }
 
-.btn-post{
-  background-color: #0073B1;
-  border: .1em solid #0073B1;
+.btn-post {
+  background-color: #0073b1;
+  border: 0.1em solid #0073b1;
   border-radius: 0.5em;
   color: #fff;
   font-family: var(--fontTexts);
   height: 2em;
-  margin-bottom: 0.20em;
-  margin-right: 0.20em;
+  margin-bottom: 0.2em;
+  margin-right: 0.2em;
   width: 4em;
 }
 
-.post-container{
+.post-container {
   flex-direction: column;
   display: flex;
 }
@@ -412,8 +411,8 @@ input{
 .post-container-card {
   box-shadow: 1px 1px 7px -2px rgb(0 115 177 / 50%);
   background-color: #fff;
-  border: 0.1em solid #0073B1;
-  border-radius: 1em ;
+  border: 0.1em solid #0073b1;
+  border-radius: 1em;
   display: flex;
   flex-direction: column;
   font-family: var(--fontTexts);
@@ -442,10 +441,11 @@ input{
   border: none;
   outline: none;
 }
-.btn-delete, .btn-edit {
-  background-color: #0073B1;
-  border: 0.1em solid #0073B1;
-  border-radius: 0.3em ;
+.btn-delete,
+.btn-edit {
+  background-color: #0073b1;
+  border: 0.1em solid #0073b1;
+  border-radius: 0.3em;
   color: #fff;
   height: 1.55em;
   margin-left: 0.25em;
@@ -518,13 +518,11 @@ input{
   border-width: 0.1em;
   display: none;
   flex-direction: column;
-  height: 13em;
   justify-content: space-between;
   padding: 1em;
   margin: 4em 8em;
   width: 15em;
 }
-
 
 .hashText {
   color: #0073b1;
@@ -534,7 +532,6 @@ input{
   font-weight: bolder;
   text-decoration: none;
 }
-
 
 .bannerHash {
   align-items: center;
@@ -546,10 +543,15 @@ input{
   font-family: var(--fontTexts);
   height: 3em;
   justify-content: center;
-  margin: -1.0999999999999996em;
+  margin: -3.1em 0 1em -1.1em;
   width: 15em;
 }
 
+.hashcontainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+}
 
 /* Seccion del perfil */
 .container-profile {
@@ -586,7 +588,6 @@ input{
   border: 0.16em solid #0073b1;
 }
 
-
 /*Profile User*/
 .userProfile {
   border: #0073b1;
@@ -601,6 +602,18 @@ input{
 
 .title-data-user {
   text-align: center;
+}
+
+/*posts-home*/
+
+.posts-container {
+  display: flex;
+  justify-content: center;
+}
+
+.posts-container + div {
+  width: 60%;
+  font-size: 2em;
 }
 
 @media (min-width: 480px) {
@@ -669,7 +682,7 @@ input{
     width: 50vw;
     margin-left: 4em;
   }
-  
+
   .popup {
     top: 12em;
     height: 61vh;
@@ -683,12 +696,12 @@ input{
     font-size: 1.205em;
   }
 
-  .container-profile .popup{
+  .container-profile .popup {
     top: 0;
   }
 
   /* aside del home */
-  .usersContainer{
+  .usersContainer {
     display: block;
   }
 
@@ -841,7 +854,6 @@ input{
   .icon-home {
     display: block;
   }
-
 }
 
 .hidden {

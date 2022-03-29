@@ -18,6 +18,7 @@ export function listPosts(formHomeParam, btnPostParam) {
   const postContainer = document.createElement('div');
   let editStatus = false;
   let id = '';
+  let hashtagsArray = [];
   /* user = getUser();
   let nameUser; */
   onGetPosts((querySnapshot) => {
@@ -29,7 +30,6 @@ export function listPosts(formHomeParam, btnPostParam) {
       const name = user.data().userName;
       console.log(name);
       const lastName = user.data().userLastName;
-
       const postContainerCard = document.createElement('section');
       postContainerCard.classList.add('post-container-card');
 
@@ -115,8 +115,7 @@ export function listPosts(formHomeParam, btnPostParam) {
       });
 
       // Borrar un post
-      // const btnsDelete = postContainer.querySelectorAll('.btn-delete');
-      // btnsDelete.forEach((btn) => btn
+
       btnDeletePost.addEventListener('click', async ({ target: { dataset } }) => {
         try {
           const sectionOver = document.querySelector('#overlay');
@@ -136,8 +135,6 @@ export function listPosts(formHomeParam, btnPostParam) {
       });
 
       // Editamos el post
-      // const btnsEdit = postContainer.querySelectorAll('.btn-edit');
-      // btnsEdit.forEach((btn) => btn
       btnEditPost.addEventListener('click', async (e) => {
         try {
           await getPost(e.target.dataset.id);
@@ -160,11 +157,13 @@ export function listPosts(formHomeParam, btnPostParam) {
     const uid = localStorage.getItem('userId');
 
     try {
+      hashtagsArray = textArea.value.match(/((#[a-z]+)\w)/g);
       if (!editStatus) {
-        await savePost(textArea.value, uid);
+        await savePost(textArea.value, uid, hashtagsArray);
       } else {
         await updatePost(id, {
           message: textArea.value,
+          hashtags: hashtagsArray,
         });
 
         editStatus = false;

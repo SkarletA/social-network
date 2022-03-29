@@ -10,11 +10,10 @@ export function listPostsUser(formHomeParam, btnPostParam) {
   const auth = getAuth;
   const formHome = formHomeParam;
   const btnPost = btnPostParam;
-
   const postContainer = document.createElement('div');
-
   let editStatus = false;
   let id = '';
+  let hashtagsArray = [];
   const uid = localStorage.getItem('userId');
 
   async function postUser(userId) {
@@ -26,7 +25,6 @@ export function listPostsUser(formHomeParam, btnPostParam) {
       const name = user.data().userName;
       const lastName = user.data().userLastName;
       console.log(auth);
-
       const postContainerCard = document.createElement('section');
       postContainerCard.classList.add('post-container-card');
 
@@ -151,12 +149,15 @@ export function listPostsUser(formHomeParam, btnPostParam) {
     const userId = localStorage.getItem('userId');
 
     try {
+      hashtagsArray = textArea.value.match(/((#[a-z]+)\w)/g);
+      console.log();
       if (!editStatus) {
-        await savePost(textArea.value, userId);
+        await savePost(textArea.value, userId, hashtagsArray);
         onNavigate('/profile');
       } else {
         await updatePost(id, {
           message: textArea.value,
+          hashtags: hashtagsArray,
         });
 
         editStatus = false;

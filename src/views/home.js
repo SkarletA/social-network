@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 // import { listPosts } from './posts.js';
 import loadHashtag from '../components/hashtag.js';
-import loadNewUsers from '../components/newUsers.js';
+// import loadNewUsers from '../components/newUsers.js';
 import loadNavbar from '../components/navbar.js';
 import { listPosts } from '../components/posts.js';
 import { popUpDelete } from '../components/popDelete.js';
@@ -61,7 +61,7 @@ export default function home() {
   // Aside Derecho del home
   const asideRightHome = document.createElement('aside');
   asideRightHome.classList.add('hash-home');
-  asideRightHome.appendChild(loadNewUsers());
+  // asideRightHome.appendChild(loadNewUsers());
   asideRightHome.appendChild(loadHashtag());
   container.appendChild(asideRightHome);
   homes.appendChild(container);
