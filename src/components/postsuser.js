@@ -109,10 +109,18 @@ export function listPostsUser(formHomeParam, btnPostParam) {
       // btnsDelete.forEach((btn) => btn
       btnDeletePost.addEventListener('click', async ({ target: { dataset } }) => {
         try {
-          if (window.confirm('Estas seguro de que quieres eliminar este post?')) {
+          const sectionOver = document.querySelector('#overlay');
+          sectionOver.style.display = 'flex';
+          const btnAcept = document.querySelector('#btnAcept');
+          const btnCancel = document.querySelector('#btnCancel');
+          btnAcept.addEventListener('click', async () => {
             await deletePost(dataset.id);
+            sectionOver.style.display = 'none';
             onNavigate('/profile');
-          }
+          });
+          btnCancel.addEventListener('click', () => {
+            onNavigate('/profile');
+          });
         } catch (error) {
           console.log(error);
         }

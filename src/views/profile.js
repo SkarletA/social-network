@@ -3,6 +3,7 @@ import loadNavbar from '../components/navbar.js';
 import { listPostsUser } from '../components/postsuser.js';
 import { popUpUser } from '../components/popUser.js';
 import { getUser } from '../user-firestore.js';
+import { popUpDelete } from '../components/popDelete.js';
 
 export default function profile() {
   const container = document.createElement('div');
@@ -75,6 +76,7 @@ export default function profile() {
   profileContent.appendChild(sectionPosts);
   profileContent.appendChild(asideSecond);
 
+  container.appendChild(popUpDelete());
   container.appendChild(loadNavbar());
   container.appendChild(profileContent);
 
@@ -89,6 +91,7 @@ export default function profile() {
       const profession = docUser.data().profession;
       const hobbie = docUser.data().hobbie;
       const aboutMe = docUser.data().aboutMe;
+
       const infoUserName = document.createElement('p');
       infoUserName.innerText = `${userName} ${userLastName} `;
 
@@ -104,11 +107,14 @@ export default function profile() {
       const infoAboutMe = document.createElement('p');
       infoAboutMe.innerText = `${aboutMe}`;
 
-      containerProfileUsers.appendChild(infoUserName);
-      containerProfileUsers.appendChild(infoDateOfBirth);
-      containerProfileUsers.appendChild(infoProfession);
-      containerProfileUsers.appendChild(infoHobbie);
-      containerProfileUsers.appendChild(infoAboutMe);
+      const divPS = document.createElement('div');
+      divPS.classList.add('div-ps');
+      divPS.appendChild(infoUserName);
+      divPS.appendChild(infoDateOfBirth);
+      divPS.appendChild(infoProfession);
+      divPS.appendChild(infoHobbie);
+      divPS.appendChild(infoAboutMe);
+      containerProfileUsers.appendChild(divPS);
     }
   } loadProfile(uid);
 

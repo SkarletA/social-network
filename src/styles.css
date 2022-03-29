@@ -11,7 +11,7 @@
 }
 
 body {
-  background-image: url('/bg-circuitGris.svg');
+  background-image: url('https://svgshare.com/i/fiJ.svg');
   height: 100vh;
   width: 100vw;
 }
@@ -318,6 +318,54 @@ input{
 
 
 /*section home*/
+.popup-delete{
+  background-color: #fff;
+  border-radius: 1.5em;
+  margin-top: -30em;
+  min-height: 20vh;
+  min-width: 17em;
+  position: relative;
+}
+
+.popup-delete .btn-close-popup {
+  display: block;
+  color: #0073b1;
+  cursor: pointer;
+  font-family: var(--fontSections);
+  font-size: 1em;
+  margin-right: 1.2em;
+  margin-top: 0.8em;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  text-decoration: none;
+  width: 1em;
+}
+
+.popup-delete h4 {
+  color: #0073b1;
+  font-family: var(--fontTitle);
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 2em;
+  text-align: center;
+}
+
+.containerbtnsPD {
+  display: flex;
+  justify-content: center;
+}
+
+.popup-delete .button{
+  border-radius: .5em;
+  height: 2.3em;
+  width: 5em;
+}
+
+.btn-acept {
+  margin-right: 0.5em;
+}
+
 .container-home{
   display: grid;
   grid-gap: 1em;
@@ -325,6 +373,7 @@ input{
 }
 
 .form-home {
+  background-color: #fff;
   margin-top: 1em;
   border: .1em solid #0073B1;
   border-radius: 1em;
@@ -361,6 +410,8 @@ input{
 }
 
 .post-container-card {
+  box-shadow: 1px 1px 7px -2px rgb(0 115 177 / 50%);
+  background-color: #fff;
   border: 0.1em solid #0073B1;
   border-radius: 1em ;
   display: flex;
@@ -405,9 +456,13 @@ input{
   width: 2em;
   height: 1.5em;
 }
-.icon-heart {
-  width: 2em;
-  height: 1.5em;
+.icon-likes-full {
+  width: 3em;
+  height: 2.5em;
+}
+.icon-likes-less {
+  width: 1.5em;
+  height: 1em;
 }
 
 /* aside del home */
