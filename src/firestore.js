@@ -21,8 +21,8 @@ initApp();
 // Iniciar Firestore
 const db = getFirestore();
 
-export const savePost = (message, userId) => addDoc(collection(db, 'posts'), {
-  message, userId, likes: 0, postLikes: [],
+export const savePost = (message, userId, hashtags) => addDoc(collection(db, 'posts'), {
+  message, userId, hashtags, likes: 0, postLikes: [],
 });
 
 export const onGetPosts = (callback) => onSnapshot(collection(db, 'posts'), callback);

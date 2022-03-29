@@ -7,7 +7,8 @@ import { register } from '../components/register.js';
 
 export default function login() {
   const expEmail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
-  const expPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
+  const expPassword =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
   const sectionLogin = document.createElement('section');
   sectionLogin.classList.add('login');
   // parrafo de bienvenido
@@ -142,7 +143,8 @@ export default function login() {
         localStorage.setItem('userId', userId);
       }
     } else {
-      containerAlertlPassword.innerHTML = '<span class="red"> Correo o constraseña inválido </span>';
+      containerAlertlPassword.innerHTML =
+        '<span class="red"> Correo o constraseña inválido </span>';
     }
   });
 
