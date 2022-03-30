@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import { onNavigate } from '../routes/app.js';
 import { updateUser } from '../user-firestore.js';
+import { uploadImage } from '../storage.js';
 
 export function popUpUser() {
   const sectionOverlay = document.createElement('section');
@@ -39,7 +40,9 @@ export function popUpUser() {
   const inputImage = document.createElement('input');
   inputImage.type = 'file';
   inputImage.id = 'photo-user';
+  inputImage.classList.add('photo-user');
   inputImage.name = 'photo-user';
+  inputImage.required = 'required';
   formProfile.appendChild(inputImage);
 
   // input profesion
@@ -48,6 +51,7 @@ export function popUpUser() {
   inputProfession.id = 'userProfession';
   inputProfession.name = 'user-profession';
   inputProfession.classList.add('input');
+  inputProfession.required = 'required';
   inputProfession.placeholder = 'Profesion: ';
   formProfile.appendChild(inputProfession);
 
@@ -57,6 +61,7 @@ export function popUpUser() {
   inputHobbie.id = 'userHobbie';
   inputHobbie.name = 'user-hobbie';
   inputHobbie.classList.add('input');
+  inputHobbie.required = 'required';
   inputHobbie.placeholder = 'Me gusta: ';
   formProfile.appendChild(inputHobbie);
 
@@ -66,6 +71,7 @@ export function popUpUser() {
   inputAboutMe.type = 'text';
   inputAboutMe.name = 'user-about-me';
   inputAboutMe.classList.add('input');
+  inputAboutMe.required = 'required';
   inputAboutMe.placeholder = 'Sobre mi: ';
   formProfile.appendChild(inputAboutMe);
 
@@ -90,6 +96,7 @@ export function popUpUser() {
         e.preventDefault();
 
         const image = inputImage.value;
+        await uploadImage(inputImage);
         const profession = inputProfession.value;
         const hobbie = inputHobbie.value;
         const aboutMe = inputAboutMe.value;

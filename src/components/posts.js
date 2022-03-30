@@ -8,6 +8,7 @@ import {
   updatePost,
 } from '../firestore.js';
 import { onNavigate } from '../routes/app.js';
+import { getImage } from '../storage.js';
 
 import { getUser } from '../user-firestore.js';
 
@@ -18,6 +19,7 @@ export function listPosts(formHomeParam, btnPostParam) {
   const postContainer = document.createElement('div');
   let editStatus = false;
   let id = '';
+  let hashtagsArray = [];
   /* user = getUser();
   let nameUser; */
   onGetPosts((querySnapshot) => {
@@ -29,9 +31,21 @@ export function listPosts(formHomeParam, btnPostParam) {
       const name = user.data().userName;
       console.log(name);
       const lastName = user.data().userLastName;
+      const image = user.data().image;
 
       const postContainerCard = document.createElement('section');
       postContainerCard.classList.add('post-container-card');
+
+      // contenedor de la imagen
+      const divImage = document.createElement('div');
+      divImage.classList.add('div-image');
+
+      let showImagePost;
+      await getImage(image).then((url) => {
+        showImagePost = document.createElement('img');
+        showImagePost.classList.add('show-image-post');
+        showImagePost.src = url;
+      });
 
       // Contenedor del parrafo del nombre y apellido
       const pNameUser = document.createElement('p');
@@ -80,8 +94,11 @@ export function listPosts(formHomeParam, btnPostParam) {
       postContainerButtons.appendChild(btnDeletePost);
       postContainerButtons.appendChild(btnEditPost);
 
+      divImage.appendChild(showImagePost);
+      divImage.appendChild(pNameUser);
+
       // Agregar container p y container button a Container general
-      postContainerCard.appendChild(pNameUser);
+      postContainerCard.appendChild(divImage);
       postContainerCard.appendChild(pPost);
       postContainerCard.appendChild(postContainerButtons);
 
@@ -115,8 +132,7 @@ export function listPosts(formHomeParam, btnPostParam) {
       });
 
       // Borrar un post
-      // const btnsDelete = postContainer.querySelectorAll('.btn-delete');
-      // btnsDelete.forEach((btn) => btn
+
       btnDeletePost.addEventListener('click', async ({ target: { dataset } }) => {
         try {
           const sectionOver = document.querySelector('#overlay');
@@ -136,8 +152,6 @@ export function listPosts(formHomeParam, btnPostParam) {
       });
 
       // Editamos el post
-      // const btnsEdit = postContainer.querySelectorAll('.btn-edit');
-      // btnsEdit.forEach((btn) => btn
       btnEditPost.addEventListener('click', async (e) => {
         try {
           await getPost(e.target.dataset.id);
@@ -160,11 +174,13 @@ export function listPosts(formHomeParam, btnPostParam) {
     const uid = localStorage.getItem('userId');
 
     try {
+      hashtagsArray = textArea.value.match(/((#[a-z]+)\w)/g);
       if (!editStatus) {
-        await savePost(textArea.value, uid);
+        await savePost(textArea.value, uid, hashtagsArray);
       } else {
         await updatePost(id, {
           message: textArea.value,
+          hashtags: hashtagsArray,
         });
 
         editStatus = false;

@@ -2,19 +2,17 @@
 import {
   deletePost, getPost, savePost, updatePost, getPostCondition,
 } from '../firestore.js';
-import { getAuth } from '../firebase.js';
 import { getUser } from '../user-firestore.js';
+import { getImage } from '../storage.js';
 import { onNavigate } from '../routes/app.js';
 
 export function listPostsUser(formHomeParam, btnPostParam) {
-  const auth = getAuth;
   const formHome = formHomeParam;
   const btnPost = btnPostParam;
-
   const postContainer = document.createElement('div');
-
   let editStatus = false;
   let id = '';
+  let hashtagsArray = [];
   const uid = localStorage.getItem('userId');
 
   async function postUser(userId) {
@@ -25,10 +23,20 @@ export function listPostsUser(formHomeParam, btnPostParam) {
       const user = await getUser(post.userId);
       const name = user.data().userName;
       const lastName = user.data().userLastName;
-      console.log(auth);
-
+      const image = user.data().image;
       const postContainerCard = document.createElement('section');
       postContainerCard.classList.add('post-container-card');
+
+      // contenedor de la imagen
+      const divImage = document.createElement('div');
+      divImage.classList.add('div-image');
+
+      let showImagePost;
+      await getImage(image).then((url) => {
+        showImagePost = document.createElement('img');
+        showImagePost.classList.add('show-image-post');
+        showImagePost.src = url;
+      });
 
       // Contenedor del parrafo del nombre y apellido
       const pNameUser = document.createElement('p');
@@ -50,7 +58,7 @@ export function listPostsUser(formHomeParam, btnPostParam) {
       imgButton.classList.add('icon-likes');
       imgButton.setAttribute('data-id', doc.id);
       imgButton.title = 'corazon sin rellenar';
-      imgButton.src = 'https://svgshare.com/i/fEh.svg';
+      imgButton.src = 'https://svgshare.com/i/fhR.svg';
       btnLikePost.appendChild(imgButton);
 
       // espacio para el contador de los likes
@@ -76,8 +84,10 @@ export function listPostsUser(formHomeParam, btnPostParam) {
       postContainerButtons.appendChild(btnDeletePost);
       postContainerButtons.appendChild(btnEditPost);
 
-      // Agregar container p y container button a Container general
-      postContainerCard.appendChild(pNameUser);
+      divImage.appendChild(showImagePost);
+      divImage.appendChild(pNameUser);
+      // Agregar container div y container button a Container general
+      postContainerCard.appendChild(divImage);
       postContainerCard.appendChild(pPost);
       postContainerCard.appendChild(postContainerButtons);
 
@@ -95,9 +105,17 @@ export function listPostsUser(formHomeParam, btnPostParam) {
         if (position !== -1) {
           postLikes.splice(position, 1);
           likes -= 1;
+          imgButton.classList.remove('icon-likes');
+          imgButton.classList.add('icon-likes-less');
+          imgButton.title = 'corazon relleno';
+          imgButton.src = 'https://svgshare.com/i/fEh.svg';
           onNavigate('/profile');
         } else {
           postLikes.push(uuid);
+          imgButton.classList.remove('icon-likes');
+          imgButton.classList.add('icon-likes-full');
+          imgButton.title = 'corazon relleno';
+          imgButton.src = 'https://svgshare.com/i/fhR.svg';
           likes += 1;
           onNavigate('/profile');
         }
@@ -151,12 +169,15 @@ export function listPostsUser(formHomeParam, btnPostParam) {
     const userId = localStorage.getItem('userId');
 
     try {
+      hashtagsArray = textArea.value.match(/((#[a-z]+)\w)/g);
+      console.log();
       if (!editStatus) {
-        await savePost(textArea.value, userId);
+        await savePost(textArea.value, userId, hashtagsArray);
         onNavigate('/profile');
       } else {
         await updatePost(id, {
           message: textArea.value,
+          hashtags: hashtagsArray,
         });
 
         editStatus = false;

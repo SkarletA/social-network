@@ -3,6 +3,7 @@ import loadNavbar from '../components/navbar.js';
 import { listPostsUser } from '../components/postsuser.js';
 import { popUpUser } from '../components/popUser.js';
 import { getUser } from '../user-firestore.js';
+import { getImage } from '../storage.js';
 import { popUpDelete } from '../components/popDelete.js';
 
 export default function profile() {
@@ -14,7 +15,12 @@ export default function profile() {
 
   // aside izquierdo
   const asidePrimary = document.createElement('aside');
-  asidePrimary.classList.add('hash-second');
+  asidePrimary.classList.add('aside-left-profile');
+  const imgAsideProfile = document.createElement('img');
+  imgAsideProfile.classList.add('imgAsideP');
+  imgAsideProfile.src = 'https://svgshare.com/i/fn9.svg';
+  asidePrimary.appendChild(imgAsideProfile);
+  profileContent.appendChild(asidePrimary);
 
   // -----> seccion principal del perfil (post de usuarios)
   const sectionPosts = document.createElement('section');
@@ -91,29 +97,73 @@ export default function profile() {
       const profession = docUser.data().profession;
       const hobbie = docUser.data().hobbie;
       const aboutMe = docUser.data().aboutMe;
+      const image = docUser.data().image;
 
       const infoUserName = document.createElement('p');
       infoUserName.innerText = `${userName} ${userLastName} `;
-
+      // contenedor de fecha
+      const divDateOfBirth = document.createElement('div');
+      divDateOfBirth.classList.add('div-date');
+      const iconDate = document.createElement('img');
+      iconDate.classList.add('icon-date');
+      iconDate.src = 'https://svgshare.com/i/fjs.svg';
+      iconDate.title = 'birthday';
       const infoDateOfBirth = document.createElement('p');
       infoDateOfBirth.innerText = `${dateOfBirth}`;
+      divDateOfBirth.appendChild(iconDate);
+      divDateOfBirth.appendChild(infoDateOfBirth);
 
+      // contenedor profesion
+      const divProfession = document.createElement('div');
+      divProfession.classList.add('div-profession');
+      const iconProfession = document.createElement('img');
+      iconProfession.classList.add('icon-profession');
+      iconProfession.src = 'https://svgshare.com/i/fjt.svg';
+      iconProfession.title = 'suitcase';
       const infoProfession = document.createElement('p');
       infoProfession.innerText = `${profession}`;
+      divProfession.appendChild(iconProfession);
+      divProfession.appendChild(infoProfession);
 
+      // contenedor de hobbie
+      const divHobbie = document.createElement('div');
+      divHobbie.classList.add('div-hobbie');
+      const iconHobbie = document.createElement('img');
+      iconHobbie.classList.add('icon-hobbie');
+      iconHobbie.src = 'https://svgshare.com/i/fmR.svg';
+      iconHobbie.title = 'Headphones';
       const infoHobbie = document.createElement('p');
       infoHobbie.innerText = `${hobbie}`;
+      divHobbie.appendChild(iconHobbie);
+      divHobbie.appendChild(infoHobbie);
 
+      // contenedor de sobre mi
+      const divAboutMe = document.createElement('div');
+      divAboutMe.classList.add('div-about-me');
+      const iconAboutMe = document.createElement('img');
+      iconAboutMe.classList.add('icon-about-me');
+      iconAboutMe.src = 'https://svgshare.com/i/fjv.svg';
+      iconAboutMe.title = 'Card';
       const infoAboutMe = document.createElement('p');
       infoAboutMe.innerText = `${aboutMe}`;
+      divAboutMe.appendChild(iconAboutMe);
+      divAboutMe.appendChild(infoAboutMe);
+
+      let showImage;
+      await getImage(image).then((url) => {
+        showImage = document.createElement('img');
+        showImage.classList.add('show-image');
+        showImage.src = url;
+      });
 
       const divPS = document.createElement('div');
       divPS.classList.add('div-ps');
+      divPS.appendChild(showImage);
       divPS.appendChild(infoUserName);
-      divPS.appendChild(infoDateOfBirth);
-      divPS.appendChild(infoProfession);
-      divPS.appendChild(infoHobbie);
-      divPS.appendChild(infoAboutMe);
+      divPS.appendChild(divDateOfBirth);
+      divPS.appendChild(divProfession);
+      divPS.appendChild(divHobbie);
+      divPS.appendChild(divAboutMe);
       containerProfileUsers.appendChild(divPS);
     }
   } loadProfile(uid);

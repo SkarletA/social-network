@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 // import { listPosts } from './posts.js';
 import loadHashtag from '../components/hashtag.js';
-import loadNewUsers from '../components/newUsers.js';
+// import loadNewUsers from '../components/newUsers.js';
 import loadNavbar from '../components/navbar.js';
 import { listPosts } from '../components/posts.js';
 import { popUpDelete } from '../components/popDelete.js';
@@ -21,6 +21,10 @@ export default function home() {
   // aside izquierdo de Home
   const asideLeftHome = document.createElement('aside');
   asideLeftHome.classList.add('profile-home');
+  const imgAsideH = document.createElement('img');
+  imgAsideH.classList.add('imgAsideH');
+  imgAsideH.src = 'https://svgshare.com/i/fjq.svg';
+  asideLeftHome.appendChild(imgAsideH);
   container.appendChild(asideLeftHome);
 
   // -----  Seccion principal de Home (Posts)
@@ -61,7 +65,7 @@ export default function home() {
   // Aside Derecho del home
   const asideRightHome = document.createElement('aside');
   asideRightHome.classList.add('hash-home');
-  asideRightHome.appendChild(loadNewUsers());
+  // asideRightHome.appendChild(loadNewUsers());
   asideRightHome.appendChild(loadHashtag());
   container.appendChild(asideRightHome);
   homes.appendChild(container);
