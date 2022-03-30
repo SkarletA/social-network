@@ -7,8 +7,7 @@ import { register } from '../components/register.js';
 
 export default function login() {
   const expEmail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
-  const expPassword =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
+  const expPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
   const sectionLogin = document.createElement('section');
   sectionLogin.classList.add('login');
   // parrafo de bienvenido
@@ -25,7 +24,7 @@ export default function login() {
   const containerImageLogin = document.createElement('picture');
   containerImageLogin.classList.add('image-login');
   const imageLogin = document.createElement('img');
-  imageLogin.src = 'https://svgshare.com/i/ept.svg';
+  imageLogin.src = 'https://svgshare.com/i/fmB.svg';
   imageLogin.title = 'img-login';
   // contenedor de logueo
   const containerLogin = document.createElement('section');
@@ -84,20 +83,20 @@ export default function login() {
   const buttonGoogle = document.createElement('button');
   buttonGoogle.classList.add('btn-google');
   buttonGoogle.id = 'btnGoogle';
-  buttonGoogle.innerText = 'GOOGLE';
-  const spanIconGoogle = document.createElement('span');
-  spanIconGoogle.classList.add('iconify');
-  spanIconGoogle.dataset.icon = 'akar-icons:google-contained-fill';
-  btnsAuthContainer.appendChild(buttonGoogle);
+  // buttonGoogle.innerText = 'GOOGLE';
+  const spanIconGoogle = document.createElement('img');
+  spanIconGoogle.classList.add('iconGoogle');
+  spanIconGoogle.src = 'https://svgshare.com/i/fnL.svg';
+
   // contenedor de boton de Github
   const buttonGit = document.createElement('button');
   buttonGit.classList.add('btn-google');
   buttonGit.id = 'btnGit';
-  const spanIconGit = document.createElement('span');
-  spanIconGit.classList.add('iconify');
-  spanIconGit.dataset.icon = 'akar-icons:google-contained-fill';
-  buttonGit.innerText = 'Git Hub';
+  const spanIconGit = document.createElement('img');
+  spanIconGit.classList.add('iconGit');
+  spanIconGit.src = 'https://svgshare.com/i/fmC.svg';
   buttonGit.appendChild(spanIconGit);
+  btnsAuthContainer.appendChild(buttonGoogle);
   btnsAuthContainer.appendChild(buttonGit);
 
   // Contenedor alerta de Google
@@ -143,8 +142,7 @@ export default function login() {
         localStorage.setItem('userId', userId);
       }
     } else {
-      containerAlertlPassword.innerHTML =
-        '<span class="red"> Correo o constraseña inválido </span>';
+      containerAlertlPassword.innerHTML = '<span class="red"> Correo o constraseña inválido </span>';
     }
   });
 

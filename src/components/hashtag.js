@@ -33,9 +33,8 @@ export default function loadHashtag() {
     hashtagsContainer.classList.add('hashcontainer');
     hashtagsContainer.appendChild(banner);
     hashContainer.innerHTML = null;
-    console.log(hashTags);
+
     hashTags.forEach((tag) => {
-      console.log(tag);
       const hashtags = document.createElement('a');
       hashtags.classList.add('hashText');
       hashtags.innerText = tag;

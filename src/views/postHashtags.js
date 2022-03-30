@@ -2,6 +2,7 @@
 import loadNavbar from '../components/navbar.js';
 import { onGetPosts, getPost, updatePost } from '../firestore.js';
 import { getUser } from '../user-firestore.js';
+import { getImage } from '../storage.js';
 
 let arrayPost = [];
 export default function () {
@@ -35,6 +36,7 @@ export default function () {
       const user = await getUser(post.info.userId);
       const name = user.data().userName;
       const lastName = user.data().userLastName;
+      const image = user.data().image;
       const postContainerCard = document.createElement('section');
       postContainerCard.classList.add('post-container-card');
       // Contenedor del parrafo del nombre y apellido
@@ -57,7 +59,8 @@ export default function () {
       imgButton.classList.add('icon-likes');
       imgButton.setAttribute('data-id', post.id);
       imgButton.title = 'corazon sin rellenar';
-      imgButton.src = 'https://svgshare.com/i/fEh.svg';
+      // imgButton.src = 'https://svgshare.com/i/fEh.svg';
+      imgButton.src = 'https://svgshare.com/i/fhR.svg';
       btnLikePost.appendChild(imgButton);
 
       // espacio para el contador de los likes
@@ -68,8 +71,20 @@ export default function () {
       containerLikes.appendChild(btnLikePost);
       containerLikes.appendChild(contLikes);
 
+      // contenedor de la imagen
+      const divImage = document.createElement('div');
+      divImage.classList.add('div-image');
       // Agregar container p y container button a Container general
-      postContainerCard.appendChild(pNameUser);
+      let showImagePost;
+      await getImage(image).then((url) => {
+        showImagePost = document.createElement('img');
+        showImagePost.classList.add('show-image-post');
+        showImagePost.src = url;
+      });
+
+      divImage.append(showImagePost);
+      divImage.appendChild(pNameUser);
+      postContainerCard.appendChild(divImage);
       postContainerCard.appendChild(pPost);
       postContainerCard.appendChild(postContainerButtons);
       postContainer.appendChild(postContainerCard);
@@ -84,9 +99,17 @@ export default function () {
         const position = postLikes.indexOf(uid);
         if (position !== -1) {
           postLikes.splice(position, 1);
+          imgButton.classList.remove('icon-likes');
+          imgButton.classList.add('icon-likes-less');
+          imgButton.title = 'corazon relleno';
+          imgButton.src = 'https://svgshare.com/i/fEh.svg';
           likes -= 1;
         } else {
           postLikes.push(uid);
+          imgButton.classList.remove('icon-likes');
+          imgButton.classList.add('icon-likes-full');
+          imgButton.title = 'corazon relleno';
+          imgButton.src = 'https://svgshare.com/i/fhR.svg';
           likes += 1;
         }
         updatePost(postId, { likes, postLikes });
