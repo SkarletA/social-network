@@ -8,6 +8,7 @@ import {
   updatePost,
 } from '../firestore.js';
 import { onNavigate } from '../routes/app.js';
+import { getImage } from '../storage.js';
 
 import { getUser } from '../user-firestore.js';
 
@@ -30,8 +31,21 @@ export function listPosts(formHomeParam, btnPostParam) {
       const name = user.data().userName;
       console.log(name);
       const lastName = user.data().userLastName;
+      const image = user.data().image;
+
       const postContainerCard = document.createElement('section');
       postContainerCard.classList.add('post-container-card');
+
+      // contenedor de la imagen
+      const divImage = document.createElement('div');
+      divImage.classList.add('div-image');
+
+      let showImagePost;
+      await getImage(image).then((url) => {
+        showImagePost = document.createElement('img');
+        showImagePost.classList.add('show-image-post');
+        showImagePost.src = url;
+      });
 
       // Contenedor del parrafo del nombre y apellido
       const pNameUser = document.createElement('p');
@@ -80,8 +94,11 @@ export function listPosts(formHomeParam, btnPostParam) {
       postContainerButtons.appendChild(btnDeletePost);
       postContainerButtons.appendChild(btnEditPost);
 
+      divImage.appendChild(showImagePost);
+      divImage.appendChild(pNameUser);
+
       // Agregar container p y container button a Container general
-      postContainerCard.appendChild(pNameUser);
+      postContainerCard.appendChild(divImage);
       postContainerCard.appendChild(pPost);
       postContainerCard.appendChild(postContainerButtons);
 

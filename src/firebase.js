@@ -26,3 +26,10 @@ export {
   signOut,
   /* eslint import/no-unresolved: */
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
+
+export {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-storage.js';

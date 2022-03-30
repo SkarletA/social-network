@@ -21,6 +21,10 @@ export default function home() {
   // aside izquierdo de Home
   const asideLeftHome = document.createElement('aside');
   asideLeftHome.classList.add('profile-home');
+  const imgAsideH = document.createElement('img');
+  imgAsideH.classList.add('imgAsideH');
+  imgAsideH.src = 'https://svgshare.com/i/fjq.svg';
+  asideLeftHome.appendChild(imgAsideH);
   container.appendChild(asideLeftHome);
 
   // -----  Seccion principal de Home (Posts)

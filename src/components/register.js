@@ -2,6 +2,7 @@
 import { onNavigate } from '../routes/app.js';
 import { updateUsers, registerUser } from '../auth.js';
 import { createUser } from '../user-firestore.js';
+import { popUpUser } from './popUser.js';
 
 export function register() {
   const expEmail = /^\w+([.+-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
@@ -114,6 +115,7 @@ export function register() {
         const date = inputDateRegister.value;
         const id = user.uid;
         onNavigate('/profile');
+        sectionOverlay.appendChild(popUpUser());
         updateUsers(`${userName} ${userLastName}`);
         await createUser(id, {
           userName,

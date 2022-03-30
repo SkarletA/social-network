@@ -8,16 +8,9 @@ export default function loadNavbar() {
   navbar.classList.add('nav-bar');
   const navbarContainer = document.createElement('div');
   navbarContainer.classList.add('nav-bar-container');
-  // const formSearch = document.createElement('form');
-  // formSearch.classList.add('search-bar');
-  // const inputSearch = document.createElement('input');
-  // inputSearch.classList.add('search-in');
-  // inputSearch.type = 'text';
-  // inputSearch.placeholder = 'Buscar en Mapask';
-  // const imgSearch = document.createElement('img');
-  // imgSearch.classList.add('search');
-  // imgSearch.src = 'https://svgshare.com/i/fAN.svg';
-  // imgSearch.title = 'Search';
+  const icon = document.createElement('img');
+  icon.src = 'https://svgshare.com/i/fkG.svg';
+  icon.classList.add('icon');
   const iconMapask = document.createElement('ul');
   iconMapask.classList.add('icon-home');
   const listMapask = document.createElement('li');
@@ -28,6 +21,8 @@ export default function loadNavbar() {
   imgMapask.classList.add('mapask');
   imgMapask.src = 'https://svgshare.com/i/f6U.svg';
   imgMapask.title = 'Home';
+  const titleHome = document.createElement('p');
+  titleHome.innerHTML = 'Inicio';
   const listIcons = document.createElement('ul');
   listIcons.classList.add('icons-bar');
   const listLogOut = document.createElement('li');
@@ -38,6 +33,8 @@ export default function loadNavbar() {
   imgLogOut.src = 'https://svgshare.com/i/fAy.svg';
   imgLogOut.title = 'LogOut';
   imgLogOut.classList.add('log-out');
+  const titleLog = document.createElement('p');
+  titleLog.innerHTML = 'Salir';
   const listHome = document.createElement('li');
   const home = document.createElement('a');
   home.dataset.path = '/home';
@@ -53,25 +50,27 @@ export default function loadNavbar() {
   const profileImg = document.createElement('img');
   profileImg.classList.add('img-profile');
   profileImg.src = 'https://svgshare.com/i/f5r.svg';
+  const titleProfile = document.createElement('p');
+  titleProfile.innerHTML = 'Perfil';
 
   profile.appendChild(profileImg);
   listProfile.appendChild(profile);
+  listProfile.appendChild(titleProfile);
   home.appendChild(homeImg);
   listHome.appendChild(home);
+  listHome.appendChild(titleHome);
   logOutBtn.appendChild(imgLogOut);
   listLogOut.appendChild(logOutBtn);
-  listIcons.appendChild(listLogOut);
+  listLogOut.appendChild(titleLog);
   listIcons.appendChild(listHome);
   listIcons.appendChild(listProfile);
+  listIcons.appendChild(listLogOut);
 
   mapask.appendChild(imgMapask);
   listMapask.appendChild(mapask);
+  iconMapask.appendChild(icon);
   iconMapask.appendChild(listMapask);
 
-  // formSearch.appendChild(inputSearch);
-  // formSearch.appendChild(imgSearch);
-
-  // navbarContainer.appendChild(formSearch);
   navbarContainer.appendChild(iconMapask);
   navbarContainer.appendChild(listIcons);
 
@@ -90,7 +89,6 @@ export default function loadNavbar() {
 
   profile.addEventListener('click', (e) => {
     e.preventDefault();
-    // profile();
     onNavigate('/profile');
   });
 

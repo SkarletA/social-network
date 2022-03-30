@@ -78,7 +78,7 @@ input {
   border-radius: 1.5em;
   flex-direction: column;
   margin-top: 1.5em;
-  min-height: 22em;
+  min-height: 24em;
   min-width: 18em;
 }
 
@@ -123,6 +123,16 @@ input {
   color: #0073b1;
 }
 
+.iconGoogle {
+  height:6em;
+  width: 6em;
+}
+
+.iconGit {
+  height:6em;
+  width: 6em;
+}
+
 /* alertas */
 .container-password {
   margin-top: 0.2em;
@@ -134,15 +144,10 @@ input {
 }
 
 .btn-google {
-  background-color: #7cb8dd;
-  border: 0.1em solid #7cb8dd;
-  border-radius: 1em;
-  color: #fff;
+  background-color: #c1e6f0;
+  border: none;
   cursor: pointer;
-  font-weight: bold;
   margin-top: 1em;
-  height: 2em;
-  width: 7em;
 }
 
 /*Seccion de registro*/
@@ -159,7 +164,7 @@ input {
 .popup {
   background-color: #fff;
   border-radius: 2em;
-  min-height: 51vh;
+  min-height: 54vh;
   min-width: 17em;
   position: relative;
 }
@@ -275,7 +280,21 @@ input {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 8em;
+  width: 15em;
+  align-items: center;
+}
+
+.icons-bar li {
+  font-family: var(--fontTitle);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon {
+  height: 3em;
+  width: 3em;
 }
 
 .icons-bar a {
@@ -363,6 +382,15 @@ input {
 
 .btn-acept {
   margin-right: 0.5em;
+}
+
+/* aside izquierdo de home */
+.profile-home {
+  margin-top: 5em;
+}
+
+.imgAsideH {
+  display: none;
 }
 
 .container-home {
@@ -465,7 +493,7 @@ input {
   height: 1em;
 }
 
-/* aside del home */
+/* aside derecho del home */
 /*NewUsers*/
 .usersContainer {
   display: none;
@@ -520,7 +548,7 @@ input {
   flex-direction: column;
   justify-content: space-between;
   padding: 1em;
-  margin: 4em 8em;
+  margin: 4em;
   width: 15em;
 }
 
@@ -553,6 +581,8 @@ input {
   margin-top: 2em;
 }
 
+
+
 /* Seccion del perfil */
 .container-profile {
   display: grid;
@@ -564,6 +594,14 @@ input {
   grid-gap: 3em;
 }
 
+.aside-left-profile{
+  margin-top: 5em;
+}
+
+.imgAsideP {
+  display: none;
+}
+
 .profile-primary {
   align-items: center;
   border: 0.16em solid #0073b1;
@@ -571,7 +609,7 @@ input {
   display: none;
   flex-direction: column;
   font-family: var(--fontTexts);
-  height: 20em;
+  height: 28em;
   margin-left: 0.5em;
   margin-right: 4em;
   margin-top: 1em;
@@ -615,6 +653,77 @@ input {
   width: 60%;
   font-size: 2em;
 }
+/*div image*/
+.div-image {
+  align-items: center;
+  display:flex;
+  margin: 0.6em 0.1em 0 0.5em;
+  flex-direction: row;
+}
+.show-image {
+  border-radius: 5em;
+  height: 10em;
+  margin-top: 1em;
+  width: 10em;
+}
+.show-image-post {
+  border-radius: 3em;
+  height: 2em;
+  width: 2em;
+}
+/*div date*/
+.div-date {
+  align-items: center;
+  display:flex;
+  margin: 0.6em 0.5em 0 0.5em;
+  flex-direction: row;
+}
+
+.icon-date {
+  height: 1.5em;
+  width: 1.5em;
+  margin-right: 0.2em;
+}
+/*div profession*/
+.div-profession {
+  align-items: center;
+  display:flex;
+  margin: 0.6em 0.5em 0 0.5em;
+  flex-direction: row;
+}
+.icon-profession {
+  height: 1.5em;
+  width: 1.5em;
+  margin-right: 0.2em;
+}
+/*div hobbie*/
+.div-hobbie {
+  align-items: center;
+  display:flex;
+  margin: 0.6em 0.5em 0 0.5em;
+  flex-direction: row;
+}
+
+.icon-hobbie {
+  height: 1.5em;
+  width: 1.5em;
+  margin-right: 0.2em;
+}
+/*div about me*/
+.div-about-me {
+  align-items: center;
+  display:flex;
+  margin: 0.6em 0.5em 0 0.5em;
+  flex-direction: row;
+}
+.icon-about-me {
+  height: 1.5em;
+  width: 1.5em;
+  margin-right: 0.2em;
+}
+
+
+
 
 @media (min-width: 480px) {
   .login {
@@ -651,7 +760,15 @@ input {
   }
 
   .icons-bar {
-    width: 8em;
+    width: 14em;
+  }
+
+  .icons-bar li {
+    font-family: var(--fontTitle);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .mapask {
@@ -665,11 +782,14 @@ input {
   }
 
   .nav-bar-container {
-    height: 3em;
+    height: 4em;
   }
 
   .icon-home {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -705,14 +825,25 @@ input {
     display: block;
   }
 
+  /* aside izquierdo del home */
+  .imgAsideH {
+    display: block;
+  }
+
   .hashContainer {
     display: flex;
+    margin: 4em 4em;
   }
 
   /* asise del profile */
   .profile-primary {
     display: flex;
   }
+
+  .imgAsideP {
+    display: flex;
+  }
+
 
   /*navbar*/
   .img-profile,
@@ -722,7 +853,7 @@ input {
   }
 
   .icons-bar {
-    width: 10em;
+    width: 15em;
   }
 
   .mapask {
@@ -736,11 +867,14 @@ input {
   }
 
   .nav-bar-container {
-    height: 4em;
+    height: 5em;
   }
 
   .icon-home {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -792,6 +926,11 @@ input {
     font-size: 1em;
   }
 
+  /* aside izquierdo del home  */
+  .imgAsideH {
+    display: block;
+  }
+
   /*Media de navbar*/
   .img-profile,
   .home,
@@ -819,7 +958,10 @@ input {
   }
 
   .icon-home {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -852,7 +994,10 @@ input {
   }
 
   .icon-home {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -889,6 +1034,9 @@ input {
   }
 
   .icon-home {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 }
