@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loadHashtag render del componente de hashtags 1`] = `"<div class=\\"hashContainer\\"><div class=\\"bannerHash\\"></div><a class=\\"hashText\\"></a><a class=\\"hashText\\"></a><a class=\\"hashText\\"></a><a class=\\"hashText\\"></a></div>"`;
