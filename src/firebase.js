@@ -1,3 +1,4 @@
+/* eslint import/no-unresolved: */
 export { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js';
 export {
   getFirestore,
@@ -24,7 +25,6 @@ export {
   updateProfile,
   onAuthStateChanged,
   signOut,
-  /* eslint import/no-unresolved: */
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
 
 export {
