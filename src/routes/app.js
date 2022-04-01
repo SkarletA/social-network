@@ -22,7 +22,3 @@ window.onpopstate = () => {
   rootDiv.innerHTML = null;
   rootDiv.appendChild(routes[window.location.pathname]());
 };
-
-// rootDiv.innerHTML = null;
-// rootDiv.removeChild(rootDiv.firstChild);
-// rootDiv.appendChild(routes[window.location.pathname]());

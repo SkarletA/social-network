@@ -9,7 +9,6 @@ describe('home', () => {
   });
 
   it('Home deberia devolver un contenedor de tipo section', () => {
-    // const containerHome = result.querySelector('#homes');
     expect(result.tagName).toBe('SECTION');
   });
 });
