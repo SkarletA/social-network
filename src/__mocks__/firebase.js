@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 export const initializeApp = () => ({});
@@ -36,6 +37,8 @@ export const signInWithPopup = (getAuth, GoogleAuthProvider) => {
   return Promise.resolve(result);
 };
 
+export class GithubAuthProvider {}
+
 export const signInWithEmailAndPassword = (auth, email, password) => {
   const userCredential = {
     user: { uid: 'za123' },
@@ -51,3 +54,8 @@ export const signOut = (getAuth) => {
   return Promise.resolve(userEmail);
 };
 export const updateProfile = () => Promise.resolve({});
+
+export const getStorage = () => ({});
+export const ref = () => ({});
+export const uploadBytes = () => Promise.resolve({});
+export const getDownloadURL = () => Promise.resolve({});
