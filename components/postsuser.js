@@ -73,12 +73,12 @@ export function listPostsUser(formHomeParam, btnPostParam) {
       const btnDeletePost = document.createElement('button');
       btnDeletePost.classList.add('btn-delete');
       btnDeletePost.setAttribute('data-id', doc.id);
-      btnDeletePost.innerHTML = '🗑 Delete';
+      btnDeletePost.innerHTML = '🗑 Borrar';
 
       const btnEditPost = document.createElement('button');
       btnEditPost.classList.add('btn-edit');
       btnEditPost.setAttribute('data-id', doc.id);
-      btnEditPost.innerHTML = '🖉 Edit';
+      btnEditPost.innerHTML = '🖉 Editar';
 
       postContainerButtons.appendChild(containerLikes);
       postContainerButtons.appendChild(btnDeletePost);
